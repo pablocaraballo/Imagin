@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".SplashActivity" />
         <activity android:name=".StartMenuActivity"></activity>
+        <activity android:name=".AddMirrorDialog"/>
+
     </application>
 
 </manifest>

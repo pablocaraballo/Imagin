@@ -35,5 +35,4 @@
                 android:layout_alignStart="@+id/imageButton2" />
 
     </LinearLayout>
-
 </RelativeLayout>
