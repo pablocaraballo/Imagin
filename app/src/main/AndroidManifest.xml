@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SplashActivity"/>
+        <activity android:name=".AddMirrorDialog"/>
 
     </application>
 
