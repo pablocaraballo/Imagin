@@ -29,6 +29,9 @@ public class SplashActivity extends Activity {
                 SplashActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
+
+        //Una vez acabe el splashScreen, enviamos hacia el menú
+        this.startActivity(new Intent(this, StartMenuActivity.class));
     }
 }
 
