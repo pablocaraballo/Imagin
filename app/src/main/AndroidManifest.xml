@@ -18,8 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FirebaseConnection"/>
-
+        <activity android:name=".StartMenuActivity"></activity>   
     </application>
 
 </manifest>
