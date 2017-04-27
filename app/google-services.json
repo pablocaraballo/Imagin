@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "839440787371",
+    "firebase_url": "https://imagine-e34e4.firebaseio.com",
+    "project_id": "imagine-e34e4",
+    "storage_bucket": "imagine-e34e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839440787371:android:83d76bf2d8ca3a48",
+        "android_client_info": {
+          "package_name": "com.ppm.imagine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839440787371-0jfisep5k4um8h0crdofovdbah80gs4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ppm.imagine",
+            "certificate_hash": "24e3333f8b74c85afeec4e6bc9e421ccd65e5ad6"
+          }
+        },
+        {
+          "client_id": "839440787371-op6eqohpucdpm033bbvued9g2606aeke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0RSCgmzDMlJKDJyEQFossg6R4eJI1A2c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839440787371-op6eqohpucdpm033bbvued9g2606aeke.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
