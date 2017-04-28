@@ -21,4 +21,5 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+    delete "/media/tarda/hddmaguayo/FP/DAM/2nDAM/Projecte/Workspace/Imagine/app/build/intermediates/exploded-aar"
 }

@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by tarda on 06/04/17.
@@ -20,6 +23,11 @@ public class SplashActivity extends Activity {
         super.onCreate(icicle);
         setContentView(R.layout.splashscreen);
 
+        TextView txt = new TextView(this);
+        txt.setText("BUENO; ESTO ES EL SPLASH!");
+        txt.setX(50);
+        txt.setY(50);
+
         /* New Handler to start the Menu-Activity
          * and close this SplashActivity-Screen after some seconds.*/
         new Handler().postDelayed(new Runnable(){
@@ -31,7 +39,7 @@ public class SplashActivity extends Activity {
         }, SPLASH_DISPLAY_LENGTH);
 
         //Una vez acabe el splashScreen, enviamos hacia el menú
-        this.startActivity(new Intent(this, StartMenuActivity.class));
+        this.startActivity(new Intent(this, FirebaseConnection.class));
     }
 }
 

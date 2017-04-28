@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "839440787371-lirq5jsg4ptkh6gs0kbqnse82ti3shka.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ppm.imagine",
+            "certificate_hash": "16c0d1094239464a7a80a5e4849bfe9e3a06878f"
+          }
+        },
+        {
           "client_id": "839440787371-0jfisep5k4um8h0crdofovdbah80gs4d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
