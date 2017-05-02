@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Imagine</string>
+    <string name="title">Nombre del espejo</string>
+    <string name="mssg">Elige un nombre para identificar a tu espejo</string>
+    <string name="OK">OK</string>
+    <string name="Cancel">Cancelar</string>
 </resources>
