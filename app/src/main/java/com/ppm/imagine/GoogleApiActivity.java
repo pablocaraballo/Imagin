@@ -16,8 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class GoogleApiActivity extends AppCompatActivity {
 
     private static final String TAG = "GoogleApiActivity";
-    public static FirebaseUser user;
-    public static GoogleApiClient mGoogleApiClient;
+    public GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +30,6 @@ public class GoogleApiActivity extends AppCompatActivity {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
 
         Log.v("GOOGLEAPISTART", mGoogleApiClient.getContext().getPackageName());
     }

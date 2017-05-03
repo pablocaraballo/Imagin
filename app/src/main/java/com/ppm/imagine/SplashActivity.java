@@ -28,18 +28,24 @@ public class SplashActivity extends Activity {
         txt.setX(50);
         txt.setY(50);
 
-        /* New Handler to start the Menu-Activity
-         * and close this SplashActivity-Screen after some seconds.*/
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                SplashActivity.this.finish();
-            }
-        }, SPLASH_DISPLAY_LENGTH);
+        //time = currenttime;
 
-        //Una vez acabe el splashScreen, enviamos hacia el menú
-        this.startActivity(new Intent(this, FirebaseConnection.class));
+       // while(currenttime < time + SPLASH_DISPLAY_LENGTH);
+        startActivity(new Intent(getApplicationContext(), FirebaseConnection.class));
+        //
+
+//        /* New Handler to start the Menu-Activity
+//         * and close this SplashActivity-Screen after some seconds.*/
+//        new Handler().postDelayed(new Runnable(){
+//            @Override
+//            public void run() {
+//                /* Create an Intent that will start the Menu-Activity. */
+//                //Una vez acabe el splashScreen, enviamos hacia el menú
+//                startActivity(new Intent(getApplicationContext(), FirebaseConnection.class));
+//            }
+//        }, SPLASH_DISPLAY_LENGTH);
+
+
     }
 }
 

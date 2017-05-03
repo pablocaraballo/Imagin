@@ -1,12 +1,15 @@
 package com.ppm.imagine;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,11 +58,7 @@ public class StartMenuActivity extends GoogleApiActivity {
                 MirrorCreateFragment createMirrordg = new MirrorCreateFragment();
                 createMirrordg.show(getSupportFragmentManager(), "MIRROR CREATOR");
 
-
             }
         });
-
-
-
     }
 }

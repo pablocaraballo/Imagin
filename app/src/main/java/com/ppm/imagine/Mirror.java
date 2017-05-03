@@ -3,6 +3,7 @@ package com.ppm.imagine;
 public class Mirror {
 
     String id_mirror;
+    String name_mirror;
     Configurator configurator_mirror;
 
     public Mirror(String id_mirror) {
@@ -16,6 +17,19 @@ public class Mirror {
     public Mirror(String id_mirror, Configurator configurator_mirror) {
         this.id_mirror = id_mirror;
         this.configurator_mirror = configurator_mirror;
+    }
+
+    public String getName_mirror() {
+        return name_mirror;
+    }
+
+    public void setName_mirror(String name_mirror) {
+        this.name_mirror = name_mirror;
+    }
+
+    public Mirror(String id_mirror, String name_mirror) {
+        this.id_mirror = id_mirror;
+        this.name_mirror = name_mirror;
     }
 
     public String getId_mirror() {

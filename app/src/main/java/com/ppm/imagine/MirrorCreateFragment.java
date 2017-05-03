@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.*;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -43,7 +45,13 @@ public class MirrorCreateFragment extends DialogFragment {
 
                         DatabaseReference db= FirebaseDatabase.getInstance().getReference();
 
-                        db.child("users").child(GoogleApiActivity.user.getUid()).child(getNombre()).setValue(getNombre());
+                        //Mirror mirror= new Mirror(getNombre(), new Configurator("Config1"));
+
+                        User user= new User(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                        //user.addMirrorToArray(mirror);
+
+                        db.child("users").child(user.getUid_user()).setValue(user);
 
                         Log.v("MIRROR_CREATED", getNombre());
 
