@@ -10,11 +10,14 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class GoogleApiActivity extends AppCompatActivity {
 
     private static final String TAG = "GoogleApiActivity";
-    public GoogleApiClient mGoogleApiClient;
+    public static FirebaseUser user;
+    public static GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,10 @@ public class GoogleApiActivity extends AppCompatActivity {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        Log.v("GOOGLEAPISTART", mGoogleApiClient.getContext().getPackageName());
     }
 
     @Override

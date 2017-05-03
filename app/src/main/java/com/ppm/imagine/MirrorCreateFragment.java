@@ -5,12 +5,26 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.*;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class AlertDFrgment extends DialogFragment {
-    public static String nombre;
+
+public class MirrorCreateFragment extends DialogFragment {
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String nombre;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final EditText edittext = new EditText(getContext());
@@ -25,7 +39,13 @@ public class AlertDFrgment extends DialogFragment {
                 // Positive button
                 .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        nombre = edittext.getText().toString();
+                        setNombre(edittext.getText().toString());
+
+                        DatabaseReference db= FirebaseDatabase.getInstance().getReference();
+
+                        db.child("users").child(GoogleApiActivity.user.getUid()).child(getNombre()).setValue(getNombre());
+
+                        Log.v("MIRROR_CREATED", getNombre());
 
                     }
                 })

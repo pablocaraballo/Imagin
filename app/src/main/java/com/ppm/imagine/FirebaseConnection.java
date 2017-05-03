@@ -28,14 +28,11 @@ public class FirebaseConnection extends GoogleApiActivity implements
         View.OnClickListener {
 
         ProgressDialogClass pdialog= new ProgressDialogClass();
-        private static final int RC_SIGN_IN = 9001;
+        private final int RC_SIGN_IN = 9001;
 
         // [START declare_auth]
         private FirebaseAuth mAuth;
         // [END declare_auth]
-
-        private GoogleApiClient mGoogleApiClient;
-
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +60,8 @@ public class FirebaseConnection extends GoogleApiActivity implements
         // [START onactivityresult]
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
 
+            super.onActivityResult(requestCode, resultCode, data);
             // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
             if (requestCode == RC_SIGN_IN) {
                 GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -88,7 +85,7 @@ public class FirebaseConnection extends GoogleApiActivity implements
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d("SIGNIN", "firebaseAuthWithGoogle:" + acct.getId());
         // [START_EXCLUDE silent]
-        pdialog.showProgressDialog();
+        //pdialog.showProgressDialog();
         // [END_EXCLUDE]
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -180,10 +177,6 @@ public class FirebaseConnection extends GoogleApiActivity implements
         int i = v.getId();
         if (i == R.id.sign_in_button) {
             signIn();
-        } else if (i == R.id.sign_out_button) {
-            signOut();
-        } else if (i == R.id.disconnect_button) {
-            revokeAccess();
         }
     }
 }
