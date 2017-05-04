@@ -18,6 +18,13 @@
         android:layout_centerHorizontal="true"
         >
 
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="32dp"
+            app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
+            android:layout_gravity="right"
+            android:id="@+id/close_session" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

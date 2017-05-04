@@ -1,15 +1,15 @@
 package com.ppm.imagine;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,24 +32,18 @@ public class StartMenuActivity extends GoogleApiActivity {
             }
         });
 
-        Button b1= new Button(this);
-        b1.setText("Cerrar sesión");
+        ImageButton b1= (ImageButton) findViewById(R.id.close_session);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        FirebaseAuth.getInstance().signOut();
-                        finish();
-                    }
-                });
+
+                showAlertDialog(StartMenuActivity.this);
+
             }
         });
 
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_start_menu);
-        layout.addView(b1);
 
         mirrorButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,4 +55,33 @@ public class StartMenuActivity extends GoogleApiActivity {
             }
         });
     }
+
+    public void showAlertDialog(Context context) {
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+        // Setting Dialog Title
+        alertDialog.setTitle(getResources().getString(R.string.Close));
+
+        // Setting Dialog Message
+        alertDialog.setMessage(getResources().getString(R.string.Close_Session_Message));
+
+        // Setting OK Button
+        alertDialog.setButton(getResources().getString(R.string.Close), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                    }
+                });
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
+    }
+
 }
+

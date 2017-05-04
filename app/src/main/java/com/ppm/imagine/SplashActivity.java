@@ -3,10 +3,7 @@ package com.ppm.imagine;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by tarda on 06/04/17.

@@ -6,8 +6,11 @@ public class Mirror {
     String name_mirror;
     Configurator configurator_mirror;
 
-    public Mirror(String id_mirror) {
-        this.id_mirror = id_mirror;
+    public Mirror(String id_mirror, int option) {
+
+        //Dos opciones en el constructor para ver cuando metemos el identificador, o cuando el nombre.
+        if (option==1)this.id_mirror = id_mirror;
+        else if (option==2) this.name_mirror=id_mirror;
     }
 
     public Mirror(Configurator configurator_mirror) {
@@ -29,6 +32,10 @@ public class Mirror {
 
     public Mirror(String id_mirror, String name_mirror) {
         this.id_mirror = id_mirror;
+        this.name_mirror = name_mirror;
+    }
+
+    public Mirror(String name_mirror) {
         this.name_mirror = name_mirror;
     }
 

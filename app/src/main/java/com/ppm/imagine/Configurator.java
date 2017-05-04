@@ -5,19 +5,9 @@ import java.util.HashMap;
 public class Configurator {
 
     String id_configurator;
-    String name_configurator;
 
     public Configurator(String id_configurator, String name_configurator) {
         this.id_configurator = id_configurator;
-        this.name_configurator = name_configurator;
-    }
-
-    public String getName_configurator() {
-        return name_configurator;
-    }
-
-    public void setName_configurator(String name_configurator) {
-        this.name_configurator = name_configurator;
     }
 
     public HashMap<String, Widget> getWidgetsConfigurator() {
@@ -31,7 +21,13 @@ public class Configurator {
     HashMap<String, Widget> widgetsConfigurator;
 
     public Configurator(String id_configurator) {
+
         this.id_configurator = id_configurator;
+    }
+
+    public Configurator(){
+
+
     }
 
     public String getId_configurator() {
