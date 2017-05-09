@@ -10,13 +10,21 @@ public class Widget {
     public Widget(String id, String name, Float posYinMirror, Float posXinMirror) {
         this.id = id;
         this.name = name;
-        this.posYinMirror = posYinMirror;
-        this.posXinMirror = posXinMirror;
+        this.posYinMirror = 0f;
+        this.posXinMirror = 0f;
     }
 
     public Widget(String id, String name) {
         this.id = id;
         this.name = name;
+        this.posYinMirror = 0f;
+        this.posXinMirror = 0f;
+    }
+
+    public Widget(String name) {
+        this.name = name;
+        this.posYinMirror = 0f;
+        this.posXinMirror = 0f;
     }
 
     public String getId() {

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -44,15 +45,13 @@ public class MirrorCreateFragment extends DialogFragment {
 
                         DatabaseReference db= FirebaseDatabase.getInstance().getReference();
 
-                        //Mirror mirror= new Mirror(getNombre(), new Configurator("Config1"));
+                        DefaultMirror df= new DefaultMirror();
+                        df.setmirrorName(getNombre());
 
-                        User user= new User(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-                        //user.addMirrorToArray(mirror);
-
-                        db.child("users").child(user.getUid_user()).setValue(user);
+                        db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(df);
 
                         Log.v("MIRROR_CREATED", getNombre());
+                        Toast.makeText(getContext(), "ESPEJO CREADO", Toast.LENGTH_SHORT).show();
 
                     }
                 })
