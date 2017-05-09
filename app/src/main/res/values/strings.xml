@@ -9,4 +9,9 @@
     <string name="loading">Cargando…</string>
     <string name="auth_failed">Authentication failed</string>
     <string name="default_mirror_name">SmartMirror por defecto</string>
+    <string name="cerrar_app_title">Cerrar aplicación</string>
+    <string name="cerrar_app">¿Quieres cerrar la aplicación?</string>
+    <string name="cerrar_app_yes">Si, cerrar.</string>
+    <string name="cerrar_app_no">No, atrás.</string>
+
 </resources>

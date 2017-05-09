@@ -43,8 +43,6 @@ public class StartMenuActivity extends GoogleApiActivity {
             }
         });
 
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_start_menu);
-
         mirrorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +52,31 @@ public class StartMenuActivity extends GoogleApiActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog alertDialog= new AlertDialog.Builder(getApplicationContext()).create();
+        alertDialog.setTitle(getResources().getString(R.string.cerrar_app_title));
+
+        alertDialog.setMessage(getResources().getString(R.string.cerrar_app));
+
+        alertDialog.setButton(getResources().getString(R.string.cerrar_app_yes), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        System.exit(0);
+                    }
+                });
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
+
     }
 
     public void showAlertDialog(Context context) {
