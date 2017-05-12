@@ -13,5 +13,9 @@
     <string name="cerrar_app">¿Quieres cerrar la aplicación?</string>
     <string name="cerrar_app_yes">Si, cerrar.</string>
     <string name="cerrar_app_no">No, atrás.</string>
+    <string name="manyMirrors">Tienes varios espejos creados</string>
+    <string name="manyMirrors_message">¿Quieres continuar adelante y crear uno nuevo?</string>
+    <string name="manyMirrors_accept">Crear nuevo espejo</string>
+    <string name="cancel">Cancelar</string>
 
 </resources>

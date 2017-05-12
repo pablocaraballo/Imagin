@@ -2,20 +2,13 @@ package com.ppm.imagine;
 
 public class Widget {
 
-    String id;
     String name;
     Float posXinMirror;
     Float posYinMirror;
 
-    public Widget(String id, String name, Float posYinMirror, Float posXinMirror) {
-        this.id = id;
-        this.name = name;
-        this.posYinMirror = 0f;
-        this.posXinMirror = 0f;
-    }
 
-    public Widget(String id, String name) {
-        this.id = id;
+    public Widget(String name, Float posYinMirror, Float posXinMirror) {
+
         this.name = name;
         this.posYinMirror = 0f;
         this.posXinMirror = 0f;
@@ -27,12 +20,8 @@ public class Widget {
         this.posXinMirror = 0f;
     }
 
-    public String getId() {
-        return id;
-    }
+    public Widget(){
 
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {

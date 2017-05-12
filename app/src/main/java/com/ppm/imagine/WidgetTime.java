@@ -17,42 +17,49 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
 public class WidgetTime extends Widget {
 
-    String horaActual;
+    String horaActualLocale;
+    public static String zonas[]= TimeZone.getAvailableIDs();
 
+    public WidgetTime(){
+
+
+    }
 
     public WidgetTime(String name) {
         super(name);
 
-        setHoraActual(new String(timeNow()));
+        setHoraActual(new String(timeNow("Australia/South")));
+
+        for (int i=0; i<zonas.length; i++){
+
+            System.out.println("TIEMPO DE ZONAS "+ zonas[i].toString());
+        }
     }
 
     public String getHoraActual() {
-        return horaActual;
+        return horaActualLocale;
     }
 
     public void setHoraActual(String horaActual) {
-        this.horaActual = horaActual;
+        this.horaActualLocale = horaActual;
     }
 
-    public String timeNow(){
+    public static String timeNow(String timezone){
 
-        SimpleDateFormat formatter= new SimpleDateFormat("HH:mm:ss");
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(System.currentTimeMillis());
-        Date timeNow= cal.getTime();
+        TimeZone tz = TimeZone.getTimeZone(timezone);
+        Calendar c = Calendar.getInstance(tz);
+        String time = String.format("%02d" , c.get(Calendar.HOUR_OF_DAY))+":"+
+                String.format("%02d" , c.get(Calendar.MINUTE));
 
-        return formatter.format(timeNow).toString();
+        return time;
 
     }
-
-
 
     /***
      *
@@ -146,6 +153,5 @@ public class WidgetTime extends Widget {
         if (temps!=null) lista_tiempos.add(temps);
 
     }*/
-
 
 }
