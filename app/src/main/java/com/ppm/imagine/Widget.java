@@ -5,7 +5,15 @@ public class Widget {
     String name;
     Float posXinMirror;
     Float posYinMirror;
+    Boolean active;
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 
     public Widget(String name, Float posYinMirror, Float posXinMirror) {
 
