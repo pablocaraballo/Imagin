@@ -4,28 +4,16 @@ import java.util.HashMap;
 
 public class Configurator {
 
-    HashMap<String, Widget> widgetsConfigurator;
+    WidgetTime widgetTime;
+    //WidgetWeather widgetWeather;
+    //WidgetTwitter widgetTwitter;
 
 
-    public HashMap<String, Widget> getWidgetsConfigurator() {
-        return widgetsConfigurator;
+    public WidgetTime getWidgetTime() {
+        return widgetTime;
     }
 
-    public void setWidgetsConfigurator(HashMap<String, Widget> widgetsConfigurator) {
-        this.widgetsConfigurator = widgetsConfigurator;
-    }
-
-    public Configurator(){
-
-        widgetsConfigurator= new HashMap<String, Widget>();
-
-    }
-
-    public void addWidgetToConfigurator(Widget widget){
-
-        if (widget!= null){
-
-            widgetsConfigurator.put(widget.getId(), widget);
-        }
+    public void setWidgetTime(WidgetTime widgetTime) {
+        this.widgetTime = widgetTime;
     }
 }

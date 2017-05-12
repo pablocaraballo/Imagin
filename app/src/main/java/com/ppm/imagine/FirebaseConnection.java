@@ -151,6 +151,13 @@ public class FirebaseConnection extends GoogleApiActivity implements
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onBackPressed() {
+
+        moveTaskToBack(true);
+
+    }
+
     void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);

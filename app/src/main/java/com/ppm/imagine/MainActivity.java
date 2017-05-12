@@ -24,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+
         this.startActivity(new Intent(this, SplashActivity.class));
 
-        WidgetTime time= new WidgetTime("HourNow");
-        System.out.println("TIMEEEE"+ time.getHoraActual());
+
 
     }
 }

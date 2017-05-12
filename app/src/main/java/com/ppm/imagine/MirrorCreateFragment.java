@@ -3,6 +3,7 @@ package com.ppm.imagine;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -18,6 +19,8 @@ import com.ppm.imagine.R;
 
 public class MirrorCreateFragment extends DialogFragment {
 
+    public String nombre;
+
     public String getNombre() {
         return nombre;
     }
@@ -26,7 +29,7 @@ public class MirrorCreateFragment extends DialogFragment {
         this.nombre = nombre;
     }
 
-    public String nombre;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final EditText edittext = new EditText(getContext());
@@ -43,15 +46,23 @@ public class MirrorCreateFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         setNombre(edittext.getText().toString());
 
-                        DatabaseReference db= FirebaseDatabase.getInstance().getReference();
+                        if (getNombre() != null) {
 
-                        DefaultMirror df= new DefaultMirror();
-                        df.setmirrorName(getNombre());
+                            DatabaseReference db= FirebaseDatabase.getInstance().getReference();
 
-                        db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(df);
+                            DefaultMirror df= new DefaultMirror();
+                            df.setName(getNombre());
 
-                        Log.v("MIRROR_CREATED", getNombre());
-                        Toast.makeText(getContext(), "ESPEJO CREADO", Toast.LENGTH_SHORT).show();
+                            db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(df);
+
+                            Log.v("MIRROR_CREATED", getNombre());
+                            Toast.makeText(getContext(), edittext.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                            Intent intent= new Intent(getActivity().getApplicationContext(), MirrorActivity.class);
+                            intent.putExtra("currentMirror", getNombre());
+
+                            startActivity(intent);
+                        }
 
                     }
                 })
@@ -59,7 +70,9 @@ public class MirrorCreateFragment extends DialogFragment {
                 // Negative Button
                 .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,	int which) {
-                        // Do something else
+
+                        dismiss();
+
                     }
                 }).create();
     }
