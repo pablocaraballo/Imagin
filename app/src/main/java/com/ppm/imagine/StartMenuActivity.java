@@ -60,5 +60,15 @@ public class StartMenuActivity extends GoogleApiActivity {
 
             }
         });
+
+        //LISTENER DE PRUEBA, BORRAR ANTES DE HACER PUSH!!
+        configuratorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(getApplicationContext(), ConfiguratorView.class));
+
+            }
+        });
     }
 }
