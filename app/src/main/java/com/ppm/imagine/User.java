@@ -1,31 +1,39 @@
 package com.ppm.imagine;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class User {
+public class User{
 
-    String uid_user;
-    HashMap<String, Mirror> mirrors_user;
+    public static HashMap<String, Mirror> mirrors = new HashMap<String, Mirror>();
 
-    public User(String uid_user) {
-        this.uid_user = uid_user;
-    }
+    public User (){
 
-    public String getUid_user() {
-        return uid_user;
-    }
 
-    public void setUid_user(String uid_user) {
-        this.uid_user = uid_user;
     }
 
     //Add a mirror to Mirror Array
 
-    public void addMirrorToArray(Mirror mirror){
+    public static void addMirrorToArray(Mirror mirror){
 
         if (mirror!=null){
 
-            mirrors_user.put(mirror.getId_mirror(), mirror);
+            mirrors.put((mirror.getName()), mirror);
         }
     }
+
+    public static void QueryMirrorsUser(){
+
+        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("/users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+    }
+
 }

@@ -1,50 +1,42 @@
 package com.ppm.imagine;
 
+import com.google.firebase.database.Exclude;
+
 public class Mirror {
 
-    String id_mirror;
-    String name_mirror;
-    Configurator configurator_mirror;
+    public String name;
+    public Configurator configurator;
 
-    public Mirror(String id_mirror) {
-        this.id_mirror = id_mirror;
+    public Mirror(){
+
+
     }
 
-    public Mirror(Configurator configurator_mirror) {
-        this.configurator_mirror = configurator_mirror;
+    public Mirror(Configurator configurator) {
+        this.configurator = configurator;
     }
 
-    public Mirror(String id_mirror, Configurator configurator_mirror) {
-        this.id_mirror = id_mirror;
-        this.configurator_mirror = configurator_mirror;
+    public Mirror(String name) {
+        this.name = name;
     }
 
-    public String getName_mirror() {
-        return name_mirror;
+    @Exclude
+    public String getName() {
+        return name;
     }
 
-    public void setName_mirror(String name_mirror) {
-        this.name_mirror = name_mirror;
+    @Exclude
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Mirror(String id_mirror, String name_mirror) {
-        this.id_mirror = id_mirror;
-        this.name_mirror = name_mirror;
+    @Exclude
+    public Configurator getConfigurator() {
+        return configurator;
     }
 
-    public String getId_mirror() {
-        return id_mirror;
-    }
-
-    public void setId_mirror(String id_mirror) {
-        this.id_mirror = id_mirror;
-    }
-
-    public Configurator getConfigurator_mirror() {
-        return configurator_mirror;
-    }
-
-    public void setConfigurator_mirror(Configurator configurator_mirror) {
-        this.configurator_mirror = configurator_mirror;
+    @Exclude
+    public void setConfigurator(Configurator configurator) {
+        this.configurator = configurator;
     }
 }

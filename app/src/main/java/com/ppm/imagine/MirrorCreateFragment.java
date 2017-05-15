@@ -3,20 +3,23 @@ package com.ppm.imagine;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.*;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.ppm.imagine.User;
+import com.ppm.imagine.R;
 
 
 public class MirrorCreateFragment extends DialogFragment {
+
+    public String nombre;
 
     public String getNombre() {
         return nombre;
@@ -26,7 +29,7 @@ public class MirrorCreateFragment extends DialogFragment {
         this.nombre = nombre;
     }
 
-    public String nombre;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final EditText edittext = new EditText(getContext());
@@ -43,17 +46,23 @@ public class MirrorCreateFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         setNombre(edittext.getText().toString());
 
-                        DatabaseReference db= FirebaseDatabase.getInstance().getReference();
+                        if (getNombre() != null) {
 
-                        //Mirror mirror= new Mirror(getNombre(), new Configurator("Config1"));
+                            DatabaseReference db= FirebaseDatabase.getInstance().getReference();
 
-                        User user= new User(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            DefaultMirror df= new DefaultMirror();
+                            df.setName(getNombre());
 
-                        //user.addMirrorToArray(mirror);
+                            db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(df);
 
-                        db.child("users").child(user.getUid_user()).setValue(user);
+                            Log.v("MIRROR_CREATED", getNombre());
+                            Toast.makeText(getContext(), edittext.getText().toString(), Toast.LENGTH_SHORT).show();
 
-                        Log.v("MIRROR_CREATED", getNombre());
+                            Intent intent= new Intent(getActivity().getApplicationContext(), MirrorActivity.class);
+                            intent.putExtra("currentMirror", getNombre());
+
+                            startActivity(intent);
+                        }
 
                     }
                 })
@@ -61,7 +70,9 @@ public class MirrorCreateFragment extends DialogFragment {
                 // Negative Button
                 .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,	int which) {
-                        // Do something else
+
+                        dismiss();
+
                     }
                 }).create();
     }
