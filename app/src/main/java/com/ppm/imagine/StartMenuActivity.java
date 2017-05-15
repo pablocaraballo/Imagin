@@ -73,6 +73,17 @@ public class StartMenuActivity extends GoogleApiActivity {
             }
         });
 
+
+        //LISTENER OF THE CONFIGURATOR BUTTON
+        configuratorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(getApplicationContext(), ConfiguratorView.class));
+
+            }
+        });
+
     }
 
     public void showAlertDialog(Context context, int opcion) {
@@ -192,6 +203,7 @@ public class StartMenuActivity extends GoogleApiActivity {
     public void onBackPressed() {
 
         moveTaskToBack(true);
+
     }
 }
 

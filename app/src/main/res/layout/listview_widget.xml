@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="?attr/actionBarSize"
+        android:id="@+id/toolbar_widgets">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Widgets"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:textColor="@color/white"
+        android:layout_gravity="left"
+        android:id="@+id/toolbar_title" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/listView_widget"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:onClick="">
+
+    </ListView>
+
+</LinearLayout>
