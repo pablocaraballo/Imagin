@@ -63,7 +63,7 @@ class WidgetAdapter extends BaseAdapter {
     private Context mContext;
 
     public static WidgetConfigItem[] widgetConfigItems = {
-            new  WidgetConfigItem(R.drawable.twitter_icon, "twitter", MainActivity.class),
+            new  WidgetConfigItem(R.drawable.twitter_icon, "twitter", WidgetTwitterConfigurator.class),
             new  WidgetConfigItem(R.drawable.twitter_icon, "Hora", MainActivity.class),
             new  WidgetConfigItem(R.drawable.twitter_icon, "Tiempo", MainActivity.class),
     };
@@ -98,7 +98,7 @@ class WidgetAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(position);
+
                mContext.startActivity(new Intent(mContext,widgetConfigItems[position].classe));
             }
         });

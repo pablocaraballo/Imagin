@@ -6,7 +6,7 @@ public class Configurator {
 
     WidgetTime widgetTime;
     //WidgetWeather widgetWeather;
-    //WidgetTwitter widgetTwitter;
+    WidgetTwitter widgetTwitter;
 
 
     public WidgetTime getWidgetTime() {
