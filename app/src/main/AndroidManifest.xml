@@ -14,17 +14,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".SplashActivity" />
         <activity android:name=".FirebaseConnection" />
         <activity android:name=".StartMenuActivity" />
         <activity android:name=".ConfiguratorView" />
-        <activity android:name=".MirrorActivity"></activity>
+        <activity android:name=".MirrorActivity" />
         <activity android:name=".WidgetSelectConfiguratorList">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ppm.imagine.ConfiguratorView" />
         </activity>
+        <activity android:name=".WidgetTimeConfiguratorActivity"></activity>
     </application>
+
 </manifest>
