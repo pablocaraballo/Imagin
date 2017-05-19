@@ -8,9 +8,12 @@ public class Configurator {
 
     WidgetTime widgetTime;
     //WidgetWeather widgetWeather;
-    //WidgetTwitter widgetTwitter;
+
+    WidgetTwitter widgetTwitter;
+
     @Exclude
     public static String espejoActual;
+
 
     public WidgetTime getWidgetTime() {
         return widgetTime;

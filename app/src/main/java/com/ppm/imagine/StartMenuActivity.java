@@ -38,6 +38,7 @@ public class StartMenuActivity extends GoogleApiActivity {
 
         ImageButton configuratorButton = (ImageButton) findViewById(R.id.buttonImageConfiguratorMode);
         ImageButton mirrorButton = (ImageButton) findViewById(R.id.buttonImageMirrorMode);
+
         ImageButton closeSessionButton= (ImageButton) findViewById(R.id.close_session);
         closeSessionButton.setOnClickListener(new View.OnClickListener() {
             @Override

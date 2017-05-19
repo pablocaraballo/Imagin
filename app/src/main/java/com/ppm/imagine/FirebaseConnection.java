@@ -137,7 +137,7 @@ public class FirebaseConnection extends GoogleApiActivity implements
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-            //
+
             startActivity(new Intent(getApplicationContext(), StartMenuActivity.class));
 
         }
