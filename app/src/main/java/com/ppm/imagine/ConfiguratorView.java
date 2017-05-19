@@ -39,12 +39,15 @@ public class ConfiguratorView extends Activity {
         setContentView(R.layout.configurator_view);
 
 
+
         //Button Add Widget
         final FloatingActionButton newWidget = (FloatingActionButton) findViewById(R.id.button_widget);
         newWidget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getApplicationContext(),WidgetSelectConfiguratorList.class));
+
             }
         });
 
@@ -57,11 +60,9 @@ public class ConfiguratorView extends Activity {
             }
         });
 
-
-
 }
 }
 
-
-
+}
+}
 
