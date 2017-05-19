@@ -56,12 +56,13 @@ public class MirrorCreateFragment extends DialogFragment {
                             db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(df);
 
                             Log.v("MIRROR_CREATED", getNombre());
+
+                            //Asignación del espejo actual al recientemente creado
+                            Configurator.espejoActual= getNombre();
+
                             Toast.makeText(getContext(), edittext.getText().toString(), Toast.LENGTH_SHORT).show();
 
-                            Intent intent= new Intent(getActivity().getApplicationContext(), MirrorActivity.class);
-                            intent.putExtra("currentMirror", getNombre());
-
-                            startActivity(intent);
+                            startActivity(new Intent(getActivity(), MirrorActivity.class));
                         }
 
                     }
