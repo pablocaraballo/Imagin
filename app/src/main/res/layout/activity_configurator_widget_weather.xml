@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_configurator_widget_weather"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.ppm.imagine.ConfiguratorWidgetWeatherActivity">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Ciudad"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginTop="17dp"
+        android:id="@+id/city" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/btn_dialog"
+        android:layout_alignBottom="@+id/city"
+        android:layout_toStartOf="@+id/city"
+        android:layout_marginEnd="32dp"
+        android:id="@+id/cityButton" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/Ein"
+        android:id="@+id/iconWeather"
+        android:layout_below="@+id/city"
+        android:layout_alignEnd="@+id/temp"
+        android:layout_marginTop="42dp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cityView"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/iconWeather"
+        android:layout_alignStart="@+id/cityButton" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/temp"
+        android:layout_marginStart="34dp"
+        android:layout_alignBaseline="@+id/cityView"
+        android:layout_alignBottom="@+id/cityView"
+        android:layout_toEndOf="@+id/cityView" />
+</RelativeLayout>
