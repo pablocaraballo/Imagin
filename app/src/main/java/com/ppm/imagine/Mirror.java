@@ -6,6 +6,7 @@ public class Mirror {
 
     public String name;
     public Configurator configurator;
+    public String id;
 
     public Mirror(){
 
