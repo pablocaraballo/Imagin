@@ -24,8 +24,6 @@ public class Widget {
 
     public Widget(String name) {
         this.name = name;
-        this.posYinMirror = 0f;
-        this.posXinMirror = 0f;
     }
 
     public Widget(){

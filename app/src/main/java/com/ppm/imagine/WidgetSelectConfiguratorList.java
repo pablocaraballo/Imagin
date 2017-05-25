@@ -64,7 +64,7 @@ class WidgetAdapter extends BaseAdapter {
 
     public static WidgetConfigItem[] widgetConfigItems = {
 
-            new  WidgetConfigItem(R.drawable.twitter_icon, "twitter", WidgetTwitterConfigurator.class),
+            new  WidgetConfigItem(R.drawable.twitter_icon, "twitter", WidgetTwitterLoginActivity.class),
             new  WidgetConfigItem(R.drawable.twitter_icon, "Hora", WidgetTimeConfiguratorActivity.class),
             new  WidgetConfigItem(R.drawable.twitter_icon, "Tiempo", MainActivity.class),
     };

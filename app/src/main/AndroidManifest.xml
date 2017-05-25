@@ -31,9 +31,9 @@
             android:name="io.fabric.ApiKey"
             android:value="158214180a194901e801f1e49d85ffc7c8ff8fb5" />
 
-        <activity android:name=".TimeLineActivity"></activity>
-        <activity android:name=".WidgetTimeConfiguratorActivity"></activity>
-
+        <activity android:name=".TimeLineActivity" />
+        <activity android:name=".WidgetTimeConfiguratorActivity" />
+        <activity android:name=".WidgetTwitterLoginActivity"></activity>
     </application>
 
 </manifest>
