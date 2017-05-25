@@ -1,13 +1,16 @@
 package com.ppm.imagine;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.ListView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,7 +32,8 @@ import java.util.Date;
 public class MirrorActivity extends GoogleApiActivity {
 
     //LISTADO DE WIDGETS
-    String widgetTime= "Widget_Time";
+    String widgetTime= "WidgetTime";
+    TextView hora;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +41,37 @@ public class MirrorActivity extends GoogleApiActivity {
         setContentView(R.layout.activity_mirror);
 
         System.out.println("ESPEJOOOO" + User.mirrors.get(Configurator.espejoActual).toString());
-
-        final TextView hora= new TextView(this);
-        final WidgetTime wt= (WidgetTime) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime();
+           
         final WidgetTwitter wtt=(WidgetTwitter) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
+
+        hora = new TextView(MirrorActivity.this);
 
         final Handler someHandler = new Handler(getMainLooper());
         someHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
+                hora.setTextColor(Color.WHITE);
+                hora.setTextSize(100);
+                System.out.println("hooooooooooooooooora" + hora.getText());
+
+                WidgetTime wt= (WidgetTime) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime();
+
                 hora.setText(WidgetTime.timeNow(wt.getHoraActual()));
-                someHandler.postDelayed(this, 1000);
+
+                hora.setX(wt.getPosXinMirror());
+                hora.setY(wt.getPosYinMirror());
+
+                RelativeLayout layout= (RelativeLayout) findViewById(R.id.activity_mirror);
+                if (hora.getParent()!=null){
+                    ((ViewGroup)hora.getParent()).removeView(hora);
+                }
+                layout.addView(hora);
+
+                someHandler.postDelayed(this, 50);
             }
         }, 10);
+
 
         //ListView TimeLine Twitter
         SearchTimeline searchTimeline;
@@ -61,21 +83,16 @@ public class MirrorActivity extends GoogleApiActivity {
         }
 
         final TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(this, searchTimeline);
-
-        hora.setText(wt.getHoraActual());
         wtt.getTimeLine().setAdapter(timelineAdapter);
 
         RelativeLayout layout= (RelativeLayout) findViewById(R.id.activity_mirror);
-
-        if(hora.getParent()!=null){
-            ((ViewGroup)hora.getParent()).removeView(hora);
-        }
 
         if(wtt.getTimeLine().getParent()!=null){
             ((ViewGroup)wtt.getTimeLine().getParent()).removeView(wtt.getTimeLine());
         }
 
         layout.addView(wtt.getTimeLine());
-        layout.addView(hora);
+  
+
     }
 }

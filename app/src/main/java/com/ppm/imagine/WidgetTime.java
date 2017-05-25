@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 public class WidgetTime extends Widget {
 
-    String horaActualLocale;
+    String horaActual;
     public static String zonas[]= TimeZone.getAvailableIDs();
 
     public WidgetTime(){
@@ -34,7 +34,10 @@ public class WidgetTime extends Widget {
     public WidgetTime(String name) {
         super(name);
 
-        setHoraActual(new String("Australia/South"));
+        this.posYinMirror = 0f;
+        this.posXinMirror = 80f;
+
+        setHoraActual(new String("Europe/Madrid"));
 
         for (int i=0; i<zonas.length; i++){
 
@@ -43,11 +46,11 @@ public class WidgetTime extends Widget {
     } 
 
     public String getHoraActual() {
-        return horaActualLocale;
+        return horaActual;
     }
 
     public void setHoraActual(String horaActual) {
-        this.horaActualLocale = horaActual;
+        this.horaActual = horaActual;
     }
 
     public static String timeNow(String timezone){

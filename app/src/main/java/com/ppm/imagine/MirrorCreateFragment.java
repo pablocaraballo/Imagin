@@ -56,7 +56,7 @@ public class MirrorCreateFragment extends DialogFragment {
                             String mirrorkey = db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().getKey();
                             df.id = mirrorkey;
 
-                            db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/"+mirrorkey).setValue(df);
+                            db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid() + "/" + mirrorkey).setValue(df);
 
                             Log.v("MIRROR_CREATED", getNombre());
 

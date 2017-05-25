@@ -212,6 +212,7 @@ public class StartMenuActivity extends GoogleApiActivity {
          @Override
          public void onChildAdded(DataSnapshot dataSnapshot, String s) {
              System.out.println("WIIIIIDGET"+dataSnapshot.toString());
+             dataSnapshot.getKey();
              Mirror m = dataSnapshot.getValue(Mirror.class);
              User.addMirrorToArray(m);
 
@@ -220,16 +221,14 @@ public class StartMenuActivity extends GoogleApiActivity {
          @Override
          public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-             //NO SALTA EL LISTENER CUANDO MODIFICAMOS
              System.out.println("CAAAAAAAAAAAAAAAAMBIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + dataSnapshot.getValue());
+             Mirror m = dataSnapshot.getValue(Mirror.class);
+             User.updateConfigToMirror(m.getConfigurator());
 
          }
 
          @Override
          public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-             Mirror m = dataSnapshot.getValue(Mirror.class);
-             User.mirrors.remove(m.getName());
 
          }
 

@@ -28,6 +28,12 @@ public class User{
 
             mirrors.put((mirror.getName()), mirror);
         }
+
+    }
+
+    public static void updateConfigToMirror(Configurator newconfig){
+
+        mirrors.get(Configurator.espejoActual).setConfigurator(newconfig);
     }
 
     public static void QueryMirrorsUser(){
