@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -20,6 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.twitter.sdk.android.tweetui.SearchTimeline;
+import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
 import org.w3c.dom.Text;
 
@@ -38,13 +41,15 @@ public class MirrorActivity extends GoogleApiActivity {
         setContentView(R.layout.activity_mirror);
 
         System.out.println("ESPEJOOOO" + User.mirrors.get(Configurator.espejoActual).toString());
+           
+        final WidgetTwitter wtt=(WidgetTwitter) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
+
         hora = new TextView(MirrorActivity.this);
 
         final Handler someHandler = new Handler(getMainLooper());
         someHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
 
                 hora.setTextColor(Color.WHITE);
                 hora.setTextSize(100);
@@ -68,6 +73,26 @@ public class MirrorActivity extends GoogleApiActivity {
         }, 10);
 
 
-    }
+        //ListView TimeLine Twitter
+        SearchTimeline searchTimeline;
+        if(wtt.getUserName()==""){
+            searchTimeline = new SearchTimeline.Builder().query(wtt.getHashtag()).build();
+        }
+        else{
+            searchTimeline = new SearchTimeline.Builder().query(wtt.getUserName()).build();
+        }
 
+        final TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(this, searchTimeline);
+        wtt.getTimeLine().setAdapter(timelineAdapter);
+
+        RelativeLayout layout= (RelativeLayout) findViewById(R.id.activity_mirror);
+
+        if(wtt.getTimeLine().getParent()!=null){
+            ((ViewGroup)wtt.getTimeLine().getParent()).removeView(wtt.getTimeLine());
+        }
+
+        layout.addView(wtt.getTimeLine());
+  
+
+    }
 }

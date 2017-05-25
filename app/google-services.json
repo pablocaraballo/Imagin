@@ -15,6 +15,38 @@
       },
       "oauth_client": [
         {
+          "client_id": "839440787371-eq96c8jql5ggl0ojdc9k7bau8cio97qq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ppm.imagine",
+            "certificate_hash": "58cf5ee976504b07e65696eef74334b976962f32"
+          }
+        },
+        {
+          "client_id": "839440787371-0cim7mpkk0s3b3t6iou52jullgtun34k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ppm.imagine",
+            "certificate_hash": "599ccb544b0076b64a22a52136760531caf22f1f"
+          }
+        },
+        {
+          "client_id": "839440787371-au1tq8bjl0m0tco68hmn5dqfjies79q3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ppm.imagine",
+            "certificate_hash": "d3da6412c886df11b128db45455c180c7dfb4d9c"
+          }
+        },
+        {
+          "client_id": "839440787371-gdjvf1ljgv4poe1gel75g0ti81g5n7p8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ppm.imagine",
+            "certificate_hash": "eb6f418b2b82635c626c0edf4beffdbba42ae459"
+          }
+        },
+        {
           "client_id": "839440787371-lirq5jsg4ptkh6gs0kbqnse82ti3shka.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

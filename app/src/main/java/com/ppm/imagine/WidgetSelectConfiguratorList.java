@@ -70,7 +70,7 @@ class WidgetAdapter extends BaseAdapter {
 
     public static WidgetConfigItem[] widgetConfigItems = {
 
-            new  WidgetConfigItem(R.drawable.twitter_icon_scaled, "Twitter", WidgetTwitterConfigurator.class),
+            new  WidgetConfigItem(R.drawable.twitter_icon_scaled, "Twitter", WidgetTwitterLoginActivity.class),
             new  WidgetConfigItem(R.drawable.relojwidgetlogo_scaled, "Hora mundial", WidgetTimeConfiguratorActivity.class),
             new  WidgetConfigItem(R.drawable.timewidgetlogo_scaled, "Meteorología", MainActivity.class),
     };
@@ -115,16 +115,6 @@ class WidgetAdapter extends BaseAdapter {
 
         TextView name=(TextView) view.findViewById(R.id.name_widget);
         name.setText(widgetConfigItems[position].name);
-
-       // final Switch configOk=(Switch) view.findViewById(R.id.config_ok);
-        //configOk.setChecked(false);
-
-        /*configOk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //User.mirrors.get("").getConfigurator().getWidgetTime().setActive(isChecked);
-                System.out.println("CAMBIO!");
-            }
-        });*/
 
 
         return view;
