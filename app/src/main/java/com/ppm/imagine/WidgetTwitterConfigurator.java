@@ -106,9 +106,9 @@ implements View.OnClickListener{
 
                 System.out.print("FIREBASEREAD "+FirebaseDatabase.getInstance().getReference("/users/"+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/"+ User.mirrors.get(Configurator.espejoActual).id+"/configurator/"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName()));
 
-                Intent intent=new Intent(WidgetTwitterConfigurator.this, TimeLineActivity.class);
+                /*Intent intent=new Intent(WidgetTwitterConfigurator.this, TimeLineActivity.class);
                 intent.putExtra("username", username.getText().toString());
-                startActivity(intent);
+                startActivity(intent);*/
                 break;
 
             case R.id.accept_hashtag:
@@ -116,9 +116,9 @@ implements View.OnClickListener{
                 newTw.put("hashtag", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getHashtag());
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
 
-                Intent intent2=new Intent(WidgetTwitterConfigurator.this, TimeLineActivity.class);
+               /* Intent intent2=new Intent(WidgetTwitterConfigurator.this, TimeLineActivity.class);
                 intent2.putExtra("hashtag", hashtag.getText().toString());
-                startActivity(intent2);
+                startActivity(intent2);*/
                 break;
         }
     }

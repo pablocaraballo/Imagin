@@ -10,7 +10,6 @@ public class WidgetTwitter extends Widget {
 
     String userName=" ";
     String hashtag=" ";
-    ListView timeLine;
 
 
 
@@ -35,14 +34,6 @@ public class WidgetTwitter extends Widget {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public ListView getTimeLine() {
-        return timeLine;
-    }
-
-    public void setTimeLine(ListView timeLine) {
-        this.timeLine = timeLine;
     }
 
 }

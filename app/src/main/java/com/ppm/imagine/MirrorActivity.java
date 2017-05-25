@@ -31,8 +31,6 @@ import java.util.Date;
 
 public class MirrorActivity extends GoogleApiActivity {
 
-    //LISTADO DE WIDGETS
-    String widgetTime= "WidgetTime";
     TextView hora;
 
     @Override
@@ -41,9 +39,9 @@ public class MirrorActivity extends GoogleApiActivity {
         setContentView(R.layout.activity_mirror);
 
         System.out.println("ESPEJOOOO" + User.mirrors.get(Configurator.espejoActual).toString());
-           
-        final WidgetTwitter wtt=(WidgetTwitter) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
 
+        WidgetTwitter wtt=(WidgetTwitter) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
+        final RelativeLayout layout= (RelativeLayout) findViewById(R.id.activity_mirror);
         hora = new TextView(MirrorActivity.this);
 
         final Handler someHandler = new Handler(getMainLooper());
@@ -62,18 +60,18 @@ public class MirrorActivity extends GoogleApiActivity {
                 hora.setX(wt.getPosXinMirror());
                 hora.setY(wt.getPosYinMirror());
 
-                RelativeLayout layout= (RelativeLayout) findViewById(R.id.activity_mirror);
                 if (hora.getParent()!=null){
                     ((ViewGroup)hora.getParent()).removeView(hora);
                 }
                 layout.addView(hora);
-
                 someHandler.postDelayed(this, 50);
             }
         }, 10);
 
-
+        //TWITTER
         //ListView TimeLine Twitter
+
+        //CONTROLAR QUE PASA SI LOS DOS CAMPOS ESTAN RELLENO (ELSE IF)
         SearchTimeline searchTimeline;
         if(wtt.getUserName()==""){
             searchTimeline = new SearchTimeline.Builder().query(wtt.getHashtag()).build();
@@ -82,17 +80,14 @@ public class MirrorActivity extends GoogleApiActivity {
             searchTimeline = new SearchTimeline.Builder().query(wtt.getUserName()).build();
         }
 
-        final TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(this, searchTimeline);
-        wtt.getTimeLine().setAdapter(timelineAdapter);
+        final TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
+        ListView lv= new ListView(MirrorActivity.this);
+        lv.setAdapter(timelineAdapter);
 
-        RelativeLayout layout= (RelativeLayout) findViewById(R.id.activity_mirror);
-
-        if(wtt.getTimeLine().getParent()!=null){
-            ((ViewGroup)wtt.getTimeLine().getParent()).removeView(wtt.getTimeLine());
+        if(lv.getParent()!=null){
+            ((ViewGroup)lv.getParent()).removeView(lv);
         }
 
-        layout.addView(wtt.getTimeLine());
-  
-
+        layout.addView(lv);
     }
 }
