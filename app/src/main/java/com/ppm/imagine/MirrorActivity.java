@@ -31,6 +31,7 @@ import java.util.Date;
 
 public class MirrorActivity extends GoogleApiActivity {
 
+    static boolean refreshListView= false;
     TextView hora;
 
     @Override
@@ -40,7 +41,6 @@ public class MirrorActivity extends GoogleApiActivity {
 
         System.out.println("ESPEJOOOO" + User.mirrors.get(Configurator.espejoActual).toString());
 
-        WidgetTwitter wtt=(WidgetTwitter) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
         final RelativeLayout layout= (RelativeLayout) findViewById(R.id.activity_mirror);
         hora = new TextView(MirrorActivity.this);
 
@@ -49,10 +49,13 @@ public class MirrorActivity extends GoogleApiActivity {
             @Override
             public void run() {
 
+                layout.removeAllViewsInLayout();
+
                 hora.setTextColor(Color.WHITE);
                 hora.setTextSize(100);
-                System.out.println("hooooooooooooooooora" + hora.getText());
+                //System.out.println("hooooooooooooooooora" + hora.getText());
 
+                WidgetTwitter wtt=(WidgetTwitter) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
                 WidgetTime wt= (WidgetTime) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime();
 
                 hora.setText(WidgetTime.timeNow(wt.getHoraActual()));
@@ -64,30 +67,43 @@ public class MirrorActivity extends GoogleApiActivity {
                     ((ViewGroup)hora.getParent()).removeView(hora);
                 }
                 layout.addView(hora);
+
+                if (refreshListView) {
+
+                    System.out.println("CAMBIOOOOOOOOOOOOOOOOOOOOO FINAL HE ENTRADO" + refreshListView);
+
+
+                    if (wtt.isActive) {
+
+                        System.out.println("CAMBIOOOOOOOOOOOOOOOOOOOOO VOY A CREAR EL LISTVIEW" + refreshListView);
+
+
+                        //CONTROLAR QUE PASA SI LOS DOS CAMPOS ESTAN RELLENO (ELSE IF)
+                        SearchTimeline searchTimeline;
+                        if (wtt.getUserName() == "") {
+                            searchTimeline = new SearchTimeline.Builder().query(wtt.getHashtag()).build();
+                        } else {
+                            searchTimeline = new SearchTimeline.Builder().query(wtt.getUserName()).build();
+                        }
+
+                        final TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
+                        ListView lv = new ListView(MirrorActivity.this);
+                        lv.setAdapter(timelineAdapter);
+
+                        if (lv.getParent() != null) {
+                            ((ViewGroup) lv.getParent()).removeView(lv);
+                        }
+
+                        layout.addView(lv);
+                    }
+
+                    refreshListView=false;
+                    System.out.println("CAMBIOOOOOOOOOOOOOOOOOOOOO FINAL REFRESH FALSE" + refreshListView);
+
+                }
                 someHandler.postDelayed(this, 50);
             }
         }, 10);
 
-        //TWITTER
-        //ListView TimeLine Twitter
-
-        //CONTROLAR QUE PASA SI LOS DOS CAMPOS ESTAN RELLENO (ELSE IF)
-        SearchTimeline searchTimeline;
-        if(wtt.getUserName()==""){
-            searchTimeline = new SearchTimeline.Builder().query(wtt.getHashtag()).build();
-        }
-        else{
-            searchTimeline = new SearchTimeline.Builder().query(wtt.getUserName()).build();
-        }
-
-        final TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
-        ListView lv= new ListView(MirrorActivity.this);
-        lv.setAdapter(timelineAdapter);
-
-        if(lv.getParent()!=null){
-            ((ViewGroup)lv.getParent()).removeView(lv);
-        }
-
-        layout.addView(lv);
     }
 }

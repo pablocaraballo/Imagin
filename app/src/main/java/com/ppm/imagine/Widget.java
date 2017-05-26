@@ -23,6 +23,7 @@ public class Widget {
     }
 
     public Widget(String name) {
+
         this.name = name;
     }
 

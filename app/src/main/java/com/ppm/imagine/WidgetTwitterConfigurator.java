@@ -103,8 +103,7 @@ implements View.OnClickListener{
                 newTw.put("userName", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName());
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
 
-
-                System.out.print("FIREBASEREAD "+FirebaseDatabase.getInstance().getReference("/users/"+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/"+ User.mirrors.get(Configurator.espejoActual).id+"/configurator/"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName()));
+                System.out.print("FIREBASEREAD "+FirebaseDatabase.getInstance().getReference("/users/"+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/"+ User.mirrors.get(Configurator.espejoActual).id+"/configurator/"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw));
 
                 /*Intent intent=new Intent(WidgetTwitterConfigurator.this, TimeLineActivity.class);
                 intent.putExtra("username", username.getText().toString());
@@ -116,7 +115,7 @@ implements View.OnClickListener{
                 newTw.put("hashtag", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getHashtag());
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
 
-               /* Intent intent2=new Intent(WidgetTwitterConfigurator.this, TimeLineActivity.class);
+                /* Intent intent2=new Intent(WidgetTwitterConfigurator.this, TimeLineActivity.class);
                 intent2.putExtra("hashtag", hashtag.getText().toString());
                 startActivity(intent2);*/
                 break;

@@ -16,6 +16,7 @@ public class WidgetTwitter extends Widget {
     public WidgetTwitter(){}
     public WidgetTwitter(String name){
         super(name);
+        this.isActive=false;
         this.posYinMirror = 0f;
         this.posXinMirror = 0f;
     }

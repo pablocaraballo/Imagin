@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -12,6 +15,10 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import io.fabric.sdk.android.Fabric;
 
 
@@ -51,6 +58,12 @@ public class WidgetTwitterLoginActivity extends AppCompatActivity {
                 //ESTO DEBERA IR EN LA ACTIVITY MIRROR
                 /*Intent timeLine = new Intent(getApplicationContext(), TimeLineActivity.class);
                 startActivity(timeLine);*/
+
+                User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().isActive=true;
+                Map<String, Object> newTw = new HashMap<String, Object>();
+                newTw.put("active", true);
+                FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
+
 
                 Intent twitterFilters=new Intent(getApplicationContext(), WidgetTwitterConfigurator.class);
                 startActivity(twitterFilters);
