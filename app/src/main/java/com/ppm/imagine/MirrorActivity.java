@@ -1,6 +1,7 @@
 package com.ppm.imagine;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,13 +32,10 @@ public class MirrorActivity extends GoogleApiActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mirror);
 
-        Intent intent= getIntent();
-        String currentMirror= intent.getStringExtra("currentMirror").toString();
-
-        System.out.println("ESPEJOOOO" + User.mirrors.get(currentMirror).toString());
+        System.out.println("ESPEJOOOO" + User.mirrors.get(Configurator.espejoActual).toString());
 
         final TextView hora= new TextView(this);
-        final WidgetTime wt= (WidgetTime) User.mirrors.get(currentMirror).getConfigurator().getWidgetTime();
+        final WidgetTime wt= (WidgetTime) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime();
 
         final Handler someHandler = new Handler(getMainLooper());
         someHandler.postDelayed(new Runnable() {

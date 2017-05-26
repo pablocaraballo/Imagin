@@ -16,6 +16,12 @@
     <string name="manyMirrors">Tienes varios espejos creados</string>
     <string name="manyMirrors_message">¿Quieres continuar adelante y crear uno nuevo?</string>
     <string name="manyMirrors_accept">Crear nuevo espejo</string>
+    <string name="selectMirror">Selecciona un espejo</string>
+    <string name="widgetTimeConfigurator_title">Elige el timezone</string>
+    <string name="configure_mirror">Configura tu espejo</string>
+    <string name="configure_mirror_msg">Elige un espejo de la lista: </string>
+    <string name="configure_mirror_accept">Configurar</string>
+    <string name="configure_mirror_denegar">Cancelar</string>
     <string name="cancel">Cancelar</string>
 
 </resources>

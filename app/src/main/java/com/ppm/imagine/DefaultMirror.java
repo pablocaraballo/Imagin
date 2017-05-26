@@ -16,7 +16,10 @@ public class DefaultMirror extends Mirror implements Serializable {
 
         configurator = new Configurator();
         WidgetTime widgetTime= new WidgetTime("WidgetTime");
+        WidgetWeather widgetWeather =new WidgetWeather("WidgetWeather");
+
         configurator.setWidgetTime(widgetTime);
+        configurator.setWidgetWeather(widgetWeather);
 
     }
 

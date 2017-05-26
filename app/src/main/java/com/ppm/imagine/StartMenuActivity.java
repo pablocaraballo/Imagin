@@ -1,12 +1,17 @@
 package com.ppm.imagine;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.auth.api.Auth;
@@ -18,6 +23,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 public class StartMenuActivity extends GoogleApiActivity {
 
@@ -31,21 +39,13 @@ public class StartMenuActivity extends GoogleApiActivity {
         ImageButton configuratorButton = (ImageButton) findViewById(R.id.buttonImageConfiguratorMode);
         ImageButton mirrorButton = (ImageButton) findViewById(R.id.buttonImageMirrorMode);
 
-        configuratorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
-
         ImageButton closeSessionButton= (ImageButton) findViewById(R.id.close_session);
         closeSessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                showAlertDialog(StartMenuActivity.this, 1);
+                showAlertDialog(StartMenuActivity.this, 1, false);
 
             }
         });
@@ -66,7 +66,7 @@ public class StartMenuActivity extends GoogleApiActivity {
 
 
                     System.out.println("CHECKUSERMIRROR USER CON MÁS DE UN ESPEJO" +User.mirrors.size());
-                    showAlertDialog(StartMenuActivity.this, 2);
+                    showAlertDialog(StartMenuActivity.this, 2, true);
 
                 }
 
@@ -79,14 +79,15 @@ public class StartMenuActivity extends GoogleApiActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(getApplicationContext(), ConfiguratorView.class));
+                showAlertDialog(StartMenuActivity.this, 3, false);
+
 
             }
         });
 
     }
 
-    public void showAlertDialog(Context context, int opcion) {
+    public void showAlertDialog(final Context context, int opcion, final boolean creandoEspejo) {
 
         switch (opcion){
             // In this case, app show a CloseSesionDialog.
@@ -139,10 +140,11 @@ public class StartMenuActivity extends GoogleApiActivity {
                                 createMirrordg.show(getSupportFragmentManager(), "MIRROR CREATOR");
                             }
                         })
-                        .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        .setNegativeButton(getResources().getString(R.string.selectMirror), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
+                                //La opcion 'true' informa de que se está creando un espejo, por lo que redigiremos a MirrorActivity.
+                                showAlertDialog(StartMenuActivity.this, 3, true);
                             }
                         }).create();
 
@@ -152,7 +154,52 @@ public class StartMenuActivity extends GoogleApiActivity {
             }
             case 3:
 
-                break;
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getResources().getString(R.string.configure_mirror_msg))
+                        .setNegativeButton(getResources().getString(R.string.configure_mirror_denegar), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+                            }
+                        });
+
+                ListView modeList = new ListView(this);
+                Iterator<Mirror> mirrors;
+                String[] mirrorsList= new String[User.mirrors.size()];
+
+                int pos = 0;
+
+                mirrors = User.mirrors.values().iterator();
+
+
+                while (mirrors.hasNext()){
+
+                    mirrorsList[pos] = mirrors.next().getName();
+                    System.out.println("ESPEJITOS " +mirrorsList[pos].toString());
+                    pos++;
+
+                }
+
+
+                ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, R.layout.mirror_list_selector_to_configurate, R.id.itemMirrorsList, mirrorsList);
+                modeList.setAdapter(modeAdapter);
+                modeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        System.out.println("MIRROOOOOR "+ parent.getItemAtPosition(position).toString());
+                        Configurator.espejoActual=parent.getItemAtPosition(position).toString();
+
+                        if (creandoEspejo) startActivity(new Intent(getApplicationContext(), MirrorActivity.class));
+                        else if (!creandoEspejo) startActivity(new Intent(getApplicationContext(), ConfiguratorView.class));
+                    }
+                });
+
+                builder.setView(modeList);
+                final Dialog dialog = builder.create();
+
+                dialog.show();
         }
 
 
@@ -173,8 +220,8 @@ public class StartMenuActivity extends GoogleApiActivity {
          @Override
          public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-
-
+             //NO SALTA EL LISTENER CUANDO MODIFICAMOS
+             System.out.println("CAAAAAAAAAAAAAAAAMBIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + dataSnapshot.getValue());
 
          }
 

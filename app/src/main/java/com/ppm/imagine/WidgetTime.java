@@ -34,13 +34,13 @@ public class WidgetTime extends Widget {
     public WidgetTime(String name) {
         super(name);
 
-        setHoraActual(new String(timeNow("Australia/South")));
+        setHoraActual(new String("Australia/South"));
 
         for (int i=0; i<zonas.length; i++){
 
             System.out.println("TIEMPO DE ZONAS "+ zonas[i].toString());
         }
-    }
+    } 
 
     public String getHoraActual() {
         return horaActualLocale;

@@ -63,9 +63,10 @@ class WidgetAdapter extends BaseAdapter {
     private Context mContext;
 
     public static WidgetConfigItem[] widgetConfigItems = {
-            new  WidgetConfigItem(R.drawable.twitter_icon, "twitter", MainActivity.class),
-            new  WidgetConfigItem(R.drawable.twitter_icon, "Hora", MainActivity.class),
-            new  WidgetConfigItem(R.drawable.twitter_icon, "Tiempo", MainActivity.class),
+
+            new  WidgetConfigItem(R.drawable.twitter_icon, "twitter", WidgetTwitterConfigurator.class),
+            new  WidgetConfigItem(R.drawable.twitter_icon, "Hora", WidgetTimeConfiguratorActivity.class),
+            new  WidgetConfigItem(R.drawable.twitter_icon, "Tiempo", ConfiguratorWidgetWeatherActivity.class),
     };
 
     public WidgetAdapter(Context c) {
@@ -98,7 +99,7 @@ class WidgetAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(position);
+
                mContext.startActivity(new Intent(mContext,widgetConfigItems[position].classe));
             }
         });
@@ -114,7 +115,8 @@ class WidgetAdapter extends BaseAdapter {
 
         configOk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               System.out.println("CAMBIO!");
+                //User.mirrors.get("").getConfigurator().getWidgetTime().setActive(isChecked);
+                System.out.println("CAMBIO!");
             }
         });
 
