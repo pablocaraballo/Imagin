@@ -33,32 +33,4 @@
         android:layout_marginEnd="32dp"
         android:id="@+id/cityButton" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ein"
-        android:id="@+id/iconWeather"
-        android:layout_below="@+id/city"
-        android:layout_alignEnd="@+id/temp"
-        android:layout_marginTop="42dp" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cityView"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="44dp"
-        android:layout_below="@+id/iconWeather"
-        android:layout_alignStart="@+id/cityButton" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/temp"
-        android:layout_marginStart="34dp"
-        android:layout_alignBaseline="@+id/cityView"
-        android:layout_alignBottom="@+id/cityView"
-        android:layout_toEndOf="@+id/cityView" />
 </RelativeLayout>
