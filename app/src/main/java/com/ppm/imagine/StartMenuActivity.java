@@ -81,7 +81,6 @@ public class StartMenuActivity extends GoogleApiActivity {
 
                 showAlertDialog(StartMenuActivity.this, 3, false);
 
-
             }
         });
 
