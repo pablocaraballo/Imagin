@@ -95,25 +95,25 @@ public class StartMenuActivity extends GoogleApiActivity {
 
                 AlertDialog alertDialog = new AlertDialog.Builder(context)
 
-                // Setting Dialog Title
-                .setTitle(getResources().getString(R.string.Close))
-                // Setting Dialog Message
-                .setMessage(getResources().getString(R.string.Close_Session_Message))
-                //Setting OnclickActionButtons
-                .setPositiveButton(getResources().getString(R.string.Close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        // Setting Dialog Title
+                        .setTitle(getResources().getString(R.string.Close))
+                        // Setting Dialog Message
+                        .setMessage(getResources().getString(R.string.Close_Session_Message))
+                        //Setting OnclickActionButtons
+                        .setPositiveButton(getResources().getString(R.string.Close), new DialogInterface.OnClickListener() {
                             @Override
-                            public void onResult(Status status) {
-                                FirebaseAuth.getInstance().signOut();
-                                finish();
-                            }
-                        });
+                            public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                }).setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                                    @Override
+                                    public void onResult(Status status) {
+                                        FirebaseAuth.getInstance().signOut();
+                                        finish();
+                                    }
+                                });
+
+                            }
+                        }).setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -208,41 +208,40 @@ public class StartMenuActivity extends GoogleApiActivity {
 
         FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
 
-         @Override
-         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-             System.out.println("WIIIIIDGET"+dataSnapshot.toString());
-             dataSnapshot.getKey();
-             Mirror m = dataSnapshot.getValue(Mirror.class);
-             User.addMirrorToArray(m);
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                System.out.println("WIIIIIDGET"+dataSnapshot.toString());
+                dataSnapshot.getKey();
+                Mirror m = dataSnapshot.getValue(Mirror.class);
+                User.addMirrorToArray(m);
 
-         }
+            }
 
-         @Override
-         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-             System.out.println("CAAAAAAAAAAAAAAAAMBIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + dataSnapshot.getValue());
-             Mirror m = dataSnapshot.getValue(Mirror.class);
+                System.out.println("CAAAAAAAAAAAAAAAAMBIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + dataSnapshot.getValue());
+                Mirror m = dataSnapshot.getValue(Mirror.class);
+                User.updateConfigToMirror(m.getConfigurator());
 
-             User.updateConfigToMirror(m.getConfigurator());
+            }
 
-         }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-         @Override
-         public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
 
-         }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-         @Override
-         public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-         }
+            }
 
 
-         @Override
-         public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-         }
-     });
+            }
+        });
     }
 
     @Override

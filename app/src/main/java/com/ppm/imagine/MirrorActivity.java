@@ -28,23 +28,22 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class MirrorActivity extends GoogleApiActivity {
 
     TextView hora;
-    static RelativeLayout layout;
-    ListView currentLv;
-
-    String TAG = "MirrorActivity ";
+    RelativeLayout layout;
+    ListView currentListview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mirror);
 
-//        System.out.println("ESPEJOOOO" + User.mirrors.get(Configurator.espejoActual).toString());
         layout= (RelativeLayout) findViewById(R.id.activity_mirror);
-
+        setGetMirrorListener();
+        System.out.println("ESPEJOOOO" + User.mirrors.get(Configurator.espejoActual).toString());
 
         hora = new TextView(MirrorActivity.this);
 
@@ -53,14 +52,11 @@ public class MirrorActivity extends GoogleApiActivity {
             @Override
             public void run() {
 
-                layout.removeAllViewsInLayout();
-
                 hora.setTextColor(Color.WHITE);
                 hora.setTextSize(100);
                 //System.out.println("hooooooooooooooooora" + hora.getText());
 
-
-                WidgetTime wt= (WidgetTime) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime();
+                WidgetTime wt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime();
 
                 hora.setText(WidgetTime.timeNow(wt.getHoraActual()));
 
@@ -78,16 +74,17 @@ public class MirrorActivity extends GoogleApiActivity {
 
     }
 
-    public void refreshListView() {
+    public void refreshListView(){
 
-        WidgetTwitter wtt = (WidgetTwitter) User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
-        System.out.println(TAG + "CAMBIOOOOOOOOOOOOOOOOOOOOO FINAL HE ENTRADO");
+        layout.removeView(currentListview);
 
+        System.out.println("WIDGETW DENTRO REFRESH");
+        WidgetTwitter wtt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
 
-        if (wtt.isActive) {
+        if (wtt.getActive()) {
 
-            if(currentLv!=null)
-                layout.removeView(currentLv);
+            System.out.println("WIDGETW ISACTIVE TRUE");
+
             //CONTROLAR QUE PASA SI LOS DOS CAMPOS ESTAN RELLENO (ELSE IF)
             SearchTimeline searchTimeline;
             if (wtt.getUserName() == "") {
@@ -103,12 +100,11 @@ public class MirrorActivity extends GoogleApiActivity {
             if (lv.getParent() != null) {
                 ((ViewGroup) lv.getParent()).removeView(lv);
             }
-            currentLv=lv;
-            layout.addView(lv);
 
+            currentListview=lv;
+            layout.addView(lv);
         }
     }
-
 
     public void setGetMirrorListener(){
 
@@ -122,16 +118,15 @@ public class MirrorActivity extends GoogleApiActivity {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                System.out.println(TAG + "CAAAAAAAAAAAAAAAAMBIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + dataSnapshot.getValue());
                 Mirror m = dataSnapshot.getValue(Mirror.class);
 
-                if (User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getHashtag() != m.getConfigurator().getWidgetTwitter().getHashtag() ||
-                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName() != m.getConfigurator().getWidgetTwitter().getUserName()){
+               /* if (User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getHashtag() != m.getConfigurator().getWidgetTwitter().getHashtag() ||
+                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName() != m.getConfigurator().getWidgetTwitter().getUserName()){*/
 
-                    refreshListView();
-                    System.out.println(TAG + "");
+                System.out.println("WIDGETW  CHILDCHANGED");
+                refreshListView();
 
-                }
+                //}
             }
 
             @Override
@@ -151,4 +146,5 @@ public class MirrorActivity extends GoogleApiActivity {
             }
         });
     }
+
 }
