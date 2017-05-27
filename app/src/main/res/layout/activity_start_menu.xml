@@ -9,52 +9,47 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.ppm.imagine.StartMenuActivity">
+    tools:context="com.ppm.imagine.StartMenuActivity"
+    android:background="@drawable/modolarge1920">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        >
+        android:orientation="vertical">
 
         <ImageButton
-            android:layout_width="25dp"
-            android:layout_height="32dp"
-            app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
-            android:layout_gravity="right"
-            android:id="@+id/close_session" />
-
-        <ImageView
+            android:id="@+id/buttonImageMirrorMode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
-            android:id="@+id/imageView"
-            android:layout_weight="0.31" />
+            android:src="@drawable/modoespejo"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/imageButton2"
+            android:layout_weight="1"
+            android:paddingTop="50dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-
-            <ImageButton
-                android:id="@+id/buttonImageMirrorMode"
-                android:layout_width="wrap_content"
+        <ImageButton
+                android:id="@+id/buttonImageConfiguratorMode"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/examplebutton"
+                android:layout_gravity="center"
+            android:background="@android:color/transparent"
+                android:src="@drawable/modoconfigurador"
                 android:layout_centerVertical="true"
-                android:layout_alignStart="@+id/imageButton2"
-                android:layout_weight="1" />
+            android:layout_weight="1" />
 
-            <ImageButton
-                    android:id="@+id/buttonImageConfiguratorMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/examplebutton"
-                    android:layout_centerVertical="true"
-                android:layout_weight="1" />
-        </LinearLayout>
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/logout"
+            android:layout_gravity="bottom"
+            android:id="@+id/close_session"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:layout_marginBottom="-35dp" />
 
     </LinearLayout>
 </RelativeLayout>

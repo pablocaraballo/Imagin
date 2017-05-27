@@ -38,8 +38,6 @@ public class ConfiguratorView extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.configurator_view);
 
-
-
         //Button Add Widget
         final FloatingActionButton newWidget = (FloatingActionButton) findViewById(R.id.button_widget);
         newWidget.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +57,13 @@ public class ConfiguratorView extends Activity {
                 startActivity(new Intent(getApplicationContext(),StartMenuActivity.class));
             }
         });
-
 }
+  
+    @Override
+    public void onBackPressed() {
+
+
+        startActivity(new Intent(ConfiguratorView.this, StartMenuActivity.class));
+
+    }
 }
-
-

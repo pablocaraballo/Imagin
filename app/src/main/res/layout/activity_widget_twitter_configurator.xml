@@ -10,11 +10,74 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ppm.imagine.WidgetTwitterConfigurator">
 
-    <com.twitter.sdk.android.core.identity.TwitterLoginButton
-        android:id="@+id/twitter_login_button"
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="?attr/actionBarSize"
+        android:id="@+id/toolbar_twitterconfig">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filtros Twitter"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:textColor="@color/white"
+            android:layout_gravity="left"
+            android:id="@+id/toolbar_title_twitter" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:text="Escoge tu filtro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:id="@+id/textView"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/toolbar_twitterconfig"
+        android:layout_centerHorizontal="true" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Introduce tu Username"
+        android:ems="10"
+        android:layout_marginTop="27dp"
+        android:id="@+id/user_text"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
 
+    <Button
+        android:text="Aceptar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/accept_user"
+        android:layout_alignTop="@+id/user_text"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Introduce el hashtag"
+        android:ems="10"
+        android:layout_marginTop="14dp"
+        android:id="@+id/hashtag_text"
+        android:layout_below="@+id/accept_user"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Aceptar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/accept_hashtag"
+        android:layout_alignTop="@+id/hashtag_text"
+        android:layout_alignStart="@+id/accept_user" />
 </RelativeLayout>

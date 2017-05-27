@@ -43,6 +43,12 @@ public class WidgetSelectConfiguratorList extends AppCompatActivity {
            // startActivity
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+        startActivity(new Intent(WidgetSelectConfiguratorList.this, ConfiguratorView.class));
+    }
 }
 
 //Widget Item
@@ -64,9 +70,11 @@ class WidgetAdapter extends BaseAdapter {
 
     public static WidgetConfigItem[] widgetConfigItems = {
 
-            new  WidgetConfigItem(R.drawable.twitter_icon, "twitter", WidgetTwitterConfigurator.class),
-            new  WidgetConfigItem(R.drawable.twitter_icon, "Hora", WidgetTimeConfiguratorActivity.class),
-            new  WidgetConfigItem(R.drawable.twitter_icon, "Tiempo", ConfiguratorWidgetWeatherActivity.class),
+
+            new  WidgetConfigItem(R.drawable.twitter_icon_scaled, "Twitter", WidgetTwitterLoginActivity.class),
+            new  WidgetConfigItem(R.drawable.relojwidgetlogo_scaled, "Hora mundial", WidgetTimeConfiguratorActivity.class),
+            new  WidgetConfigItem(R.drawable.timewidgetlogo_scaled, "Meteorología", ConfiguratorWidgetWeatherActivity.class),
+
     };
 
     public WidgetAdapter(Context c) {
@@ -110,17 +118,9 @@ class WidgetAdapter extends BaseAdapter {
         TextView name=(TextView) view.findViewById(R.id.name_widget);
         name.setText(widgetConfigItems[position].name);
 
-        final Switch configOk=(Switch) view.findViewById(R.id.config_ok);
-        configOk.setChecked(false);
-
-        configOk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //User.mirrors.get("").getConfigurator().getWidgetTime().setActive(isChecked);
-                System.out.println("CAMBIO!");
-            }
-        });
-
 
         return view;
     }
+
+
 }

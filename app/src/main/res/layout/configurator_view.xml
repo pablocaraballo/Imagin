@@ -7,9 +7,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <!--fab:fab_icon="@drawable/ic_fab_star"-->
-
-
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions_down"
         android:layout_width="494dp"
@@ -17,10 +14,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        fab:fab_addButtonColorNormal="@color/pink"
-        fab:fab_addButtonColorPressed="@color/pink_pressed"
-        fab:fab_addButtonSize="mini"
-        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_addButtonColorNormal="@color/tw__composer_blue"
+        fab:fab_addButtonColorPressed="@color/tw__blue_pressed"
+        fab:fab_addButtonSize="normal"
+        fab:fab_addButtonPlusIconColor="@color/black_semi_transparent"
         fab:fab_expandDirection="up"
         android:layout_gravity="bottom|right"
 
@@ -30,26 +27,19 @@
         android:layout_marginEnd="16dp">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_size="mini"/>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_widget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
             fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_title="Añadir Widget"/>
+            fab:fab_title="Añadir/Modificar widget"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_title="Ejemplo1"
+            fab:fab_title="Perfil actual"
             fab:fab_colorPressed="@color/white_pressed"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton

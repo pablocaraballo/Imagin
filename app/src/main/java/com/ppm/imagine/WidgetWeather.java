@@ -3,6 +3,9 @@ package com.ppm.imagine;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,6 +17,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +30,7 @@ public class WidgetWeather extends Widget{
 
     public String pathImagen;
     public String city;
-    public Double temp;
+    public String temp;
 
     public String getPathImagen() {
         return pathImagen;
@@ -35,11 +40,11 @@ public class WidgetWeather extends Widget{
         this.pathImagen = pathImagen;
     }
 
-    public Double getTemp() {
+    public String getTemp() {
         return temp;
     }
 
-    public void setTemp(Double temp) {
+    public void setTemp(String temp) {
         this.temp = temp;
     }
 
@@ -79,21 +84,27 @@ public class WidgetWeather extends Widget{
     }
 
     public void defWeather(){
-        try{
-            convertToJSON(getJSON("http://api.openweathermap.org/data/2.5/weather?q=Hawaii&appid=2de70b6961f101b94a6655b4856e3921",300000));
+            try{
+                convertToJSON(getJSON("http://api.openweathermap.org/data/2.5/weather?q=Bacelona&appid=2de70b6961f101b94a6655b4856e3921",300000000));
 
-        }catch(Exception e){
+            }catch (Exception e){
 
-        }
+            }
+
+
 
     }
     public void getWeather(final String ciudad){
-        try{
-            convertToJSON(getJSON("http://api.openweathermap.org/data/2.5/weather?q="+ciudad+"&appid=2de70b6961f101b94a6655b4856e3921",300000));
 
-        }catch(Exception e){
+        try{
+            convertToJSON(getJSON("http://api.openweathermap.org/data/2.5/weather?q="+ciudad+"&appid=2de70b6961f101b94a6655b4856e3921",300000000));
+
+        }catch (Exception e){
 
         }
+
+
+
     }
 
     public String getJSON(String url, int timeout) {
@@ -143,14 +154,19 @@ public class WidgetWeather extends Widget{
     private void convertToJSON(String object) {
         String weathers = null;
         String ident = null;
-        Double temperature;
+        Double tempAux;
+        String temperature;
 
         try {
             JSONObject objcity = new JSONObject(object);
             JSONObject main = objcity.getJSONObject("main");
-            temperature = main.getDouble("temp");
+            temperature = main.getString("temp");
 
-            temperature = temperature - 273.15;
+            tempAux = Double.parseDouble(String.valueOf(temperature));
+            tempAux = tempAux - 273.15;
+
+            temperature =tempAux.toString();
+
             setTemp(temperature);
             System.out.println("DEFWE "+getTemp());
 
@@ -174,70 +190,78 @@ public class WidgetWeather extends Widget{
             } else {*/
                 switch (ident) {
                     case "01d":
-                        setPathImagen("R.drawable.sol");
+                        setPathImagen("sol");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
                     case "01n":
-                        setPathImagen("R.drawable.luna");
+                        setPathImagen("luna");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
                     case "02d":
-                        setPathImagen("R.drawable.nubladob");
+                        setPathImagen("nubladob");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "02n":
-                        setPathImagen("R.drawable.nubladob");
+                        setPathImagen("nubladob");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "03d":
-                        setPathImagen("R.drawable.nubladob");
+                        setPathImagen("nubladob");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "03n":
-                        setPathImagen("R.drawable.viento");
+                        setPathImagen("viento");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "04d":
-                        setPathImagen("R.drawable.viento");
+                        setPathImagen("viento");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "04n":
-                        setPathImagen("R.drawable.nubladob");
+                        setPathImagen("nubladob");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "11d":
-                        setPathImagen("R.drawable.rayo");
+                        setPathImagen("rayo");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "09d":
-                        setPathImagen("R.drawable.lluvia");
+                        setPathImagen("lluvia");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "10d":
-                        setPathImagen("R.drawable.arcoiris");
+                        setPathImagen("arcoiris");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "13d":
-                        setPathImagen("R.drawable.nieve");
+                        setPathImagen("nieve");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "50d":
-                        setPathImagen("R.drawable.niebla");
+                        setPathImagen("niebla");
                         System.out.println("DEFWE "+getPathImagen());
                         break;
 
                 }
             //}
+            ///actualizar los valores en FireBase
+            /*Map<String, Object> newTz = new HashMap<String, Object>();
+            newTz.put("pathImagen", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPathImagen());
+            FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getName()).updateChildren(newTz);
+
+            newTz.put("temp", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getTemp().toString());
+            FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getName()).updateChildren(newTz);
+*/
 
         } catch (Throwable t) {
             Log.e("ErrorParsingJSON", "Could not parse malformed JSON: \"" + object + "\"");
