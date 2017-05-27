@@ -1,5 +1,6 @@
 package com.ppm.imagine;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -60,6 +61,8 @@ public class ConfiguratorWidgetWeatherActivity extends AppCompatActivity {
                 newTz.put("city", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getCity());
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getName()).updateChildren(newTz);
 
+                Intent ListSelector = new Intent(getApplicationContext(), WidgetSelectConfiguratorList.class);
+                startActivity(ListSelector);
             }
         });
 
