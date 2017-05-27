@@ -206,7 +206,7 @@ public class StartMenuActivity extends GoogleApiActivity {
 
     public void setGetMirrorListener(){
 
-     FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
 
          @Override
          public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -222,14 +222,6 @@ public class StartMenuActivity extends GoogleApiActivity {
 
              System.out.println("CAAAAAAAAAAAAAAAAMBIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + dataSnapshot.getValue());
              Mirror m = dataSnapshot.getValue(Mirror.class);
-
-             if (User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getHashtag() != m.getConfigurator().getWidgetTwitter().getHashtag() ||
-                     User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName() != m.getConfigurator().getWidgetTwitter().getUserName()){
-
-                 MirrorActivity.refreshListView=true;
-                 System.out.println("CAMBIOOOOOOOOOOOOOOOOOOOOO HE CAMBIADO EL VALOR "+ MirrorActivity.refreshListView);
-
-             }
 
              User.updateConfigToMirror(m.getConfigurator());
 
