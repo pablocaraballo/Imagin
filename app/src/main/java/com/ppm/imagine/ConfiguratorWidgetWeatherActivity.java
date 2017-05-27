@@ -41,7 +41,7 @@ public class ConfiguratorWidgetWeatherActivity extends AppCompatActivity {
        // ImageView imageView = (ImageView) findViewById(R.id.iconWeather);
         final TextView temp = (TextView)findViewById(R.id.temp);
         final TextView cityView = (TextView)findViewById(R.id.cityView);
-        final Drawable dr = null;
+
 
 
         imageButton.setOnClickListener(new View.OnClickListener() {

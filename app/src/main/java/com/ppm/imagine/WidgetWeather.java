@@ -61,7 +61,7 @@ public class WidgetWeather extends Widget{
     public WidgetWeather() {
         super();
         this.posYinMirror = 0f;
-        this.posXinMirror = 1500f;
+        this.posXinMirror = 50f;//1500
         //defWeather();
     }
 
@@ -69,7 +69,7 @@ public class WidgetWeather extends Widget{
 	super(name);
 
         this.posYinMirror = 0f;
-        this.posXinMirror = 1500f;
+        this.posXinMirror = 50f;//1500
         defWeather();
     }
 
