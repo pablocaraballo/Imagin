@@ -70,9 +70,11 @@ class WidgetAdapter extends BaseAdapter {
 
     public static WidgetConfigItem[] widgetConfigItems = {
 
+
             new  WidgetConfigItem(R.drawable.twitter_icon_scaled, "Twitter", WidgetTwitterLoginActivity.class),
             new  WidgetConfigItem(R.drawable.relojwidgetlogo_scaled, "Hora mundial", WidgetTimeConfiguratorActivity.class),
-            new  WidgetConfigItem(R.drawable.timewidgetlogo_scaled, "Meteorología", MainActivity.class),
+            new  WidgetConfigItem(R.drawable.timewidgetlogo_scaled, "Meteorología", ConfiguratorWidgetWeatherActivity.class),
+
     };
 
     public WidgetAdapter(Context c) {

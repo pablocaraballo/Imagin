@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +35,11 @@ import java.util.List;
 public class MirrorActivity extends GoogleApiActivity {
 
     TextView hora;
+    TextView city;
+    TextView temp;
     RelativeLayout layout;
     ListView currentListview;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +51,40 @@ public class MirrorActivity extends GoogleApiActivity {
         System.out.println("ESPEJOOOO" + User.mirrors.get(Configurator.espejoActual).toString());
 
         hora = new TextView(MirrorActivity.this);
+        city =new TextView(MirrorActivity.this);
+        temp = new TextView(MirrorActivity.this);
+        imageView = new ImageView(MirrorActivity.this);
 
         final Handler someHandler = new Handler(getMainLooper());
         someHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                String resourceName = User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPathImagen();
 
                 hora.setTextColor(Color.WHITE);
                 hora.setTextSize(100);
+
+                /*city.setTextColor(Color.WHITE);
+                city.setTextSize(50);
+                city.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getCity());
+                city.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror());
+                city.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror()-100);
+
+                temp.setTextColor(Color.WHITE);
+                temp.setTextSize(50);
+                temp.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getTemp().toString());
+                temp.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror()+100);
+                temp.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror()-100);
+
+                imageView.setImageResource(getResources().getIdentifier(resourceName, "drawable", getPackageName()));
+                imageView.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror());
+                imageView.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror());
+
+                layout.addView(city);
+                layout.addView(temp);
+                layout.addView(imageView);*/
+
+
                 //System.out.println("hooooooooooooooooora" + hora.getText());
 
                 WidgetTime wt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime();

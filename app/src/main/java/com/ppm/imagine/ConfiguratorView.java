@@ -62,6 +62,7 @@ public class ConfiguratorView extends Activity {
     @Override
     public void onBackPressed() {
 
+
         startActivity(new Intent(ConfiguratorView.this, StartMenuActivity.class));
 
     }
