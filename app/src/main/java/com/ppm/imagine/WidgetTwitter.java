@@ -12,13 +12,12 @@ public class WidgetTwitter extends Widget {
     String hashtag=" ";
 
 
-
     public WidgetTwitter(){}
     public WidgetTwitter(String name){
         super(name);
-        this.isActive=false;
-        this.posYinMirror = 0f;
-        this.posXinMirror = 0f;
+        this.setActive(false);
+        setPosXinMirror(0f);
+        setPosYinMirror(0f);
     }
 
     public String getHashtag() {

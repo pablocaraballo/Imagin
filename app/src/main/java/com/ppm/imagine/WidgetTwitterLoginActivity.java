@@ -25,8 +25,8 @@ import io.fabric.sdk.android.Fabric;
 public class WidgetTwitterLoginActivity extends AppCompatActivity {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "jKVRlJTTTGNO9svtBaBx021uA";
-    private static final String TWITTER_SECRET = "AYGwObrgO2iWKlT4pjzInDCVRoYwciokLmMpouAlx8AjjtbmyR";
+    public static final String TWITTER_KEY = "jKVRlJTTTGNO9svtBaBx021uA";
+    public static final String TWITTER_SECRET = "AYGwObrgO2iWKlT4pjzInDCVRoYwciokLmMpouAlx8AjjtbmyR";
     private TwitterLoginButton loginButton;
 
     @Override
@@ -59,7 +59,7 @@ public class WidgetTwitterLoginActivity extends AppCompatActivity {
                 /*Intent timeLine = new Intent(getApplicationContext(), TimeLineActivity.class);
                 startActivity(timeLine);*/
 
-                User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().isActive=true;
+                User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setActive(true);
                 Map<String, Object> newTw = new HashMap<String, Object>();
                 newTw.put("active", true);
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
