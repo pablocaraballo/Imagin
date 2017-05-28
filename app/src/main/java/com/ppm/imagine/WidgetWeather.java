@@ -22,10 +22,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by tarda on 16/05/17.
- */
-
 public class WidgetWeather extends Widget{
 
     public String pathImagen;
@@ -60,16 +56,16 @@ public class WidgetWeather extends Widget{
 
     public WidgetWeather() {
         super();
-        this.posYinMirror = 0f;
-        this.posXinMirror = 50f;//1500
+        this.posYinMirror = 2;
+        this.posXinMirror = 0;
         //defWeather();
     }
 
     public WidgetWeather(String name) {
 	super(name);
 
-        this.posYinMirror = 0f;
-        this.posXinMirror = 50f;//1500
+        this.posYinMirror = 2;
+        this.posXinMirror = 0;
         defWeather();
     }
 
@@ -77,8 +73,8 @@ public class WidgetWeather extends Widget{
 
     public WidgetWeather(String city,String name) {
 	super(name);
-        this.posYinMirror = 0f;
-        this.posXinMirror = 1500f;
+        this.posYinMirror = 2;
+        this.posXinMirror = 0;
         setCity(city);
         getWeather(city);
     }

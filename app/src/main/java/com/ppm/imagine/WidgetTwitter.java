@@ -16,8 +16,8 @@ public class WidgetTwitter extends Widget {
     public WidgetTwitter(String name){
         super(name);
         this.setActive(false);
-        setPosXinMirror(0f);
-        setPosYinMirror(0f);
+        setPosXinMirror(0);
+        setPosYinMirror(1);
     }
 
     public String getHashtag() {

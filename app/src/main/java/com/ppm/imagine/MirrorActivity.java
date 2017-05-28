@@ -127,7 +127,6 @@ public class MirrorActivity extends GoogleApiActivity {
             SearchTimeline searchTimeline;
             if (wtt.getUserName() == "") {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getHashtag()).build();
-                System.out.println("IMPRIMO HASHTAG: "+wtt.getHashtag());
             } else {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getUserName()).build();
             }
