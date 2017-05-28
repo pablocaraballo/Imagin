@@ -64,30 +64,24 @@ public class MirrorActivity extends GoogleApiActivity {
                 String resourceName = User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPathImagen();
 
                 hora.setTextColor(Color.WHITE);
-                hora.setTextSize(100);
+                hora.setTextSize(50);
 
-                /*city.setTextColor(Color.WHITE);
-                city.setTextSize(50);
+                city.setTextColor(Color.GREEN);
+                city.setTextSize(100);
                 city.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getCity());
-                city.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror());
-                city.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror()-100);
+                city.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror()-1000);
+                city.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror()+100);
 
-                temp.setTextColor(Color.WHITE);
+                temp.setTextColor(Color.GREEN);
                 temp.setTextSize(50);
                 temp.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getTemp().toString());
-                temp.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror()+100);
-                temp.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror()-100);
+                temp.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror()-20);
+                temp.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror()+100);
 
                 imageView.setImageResource(getResources().getIdentifier(resourceName, "drawable", getPackageName()));
                 imageView.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror());
                 imageView.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror());
 
-                layout.addView(city);
-                layout.addView(temp);
-                layout.addView(imageView);*/
-
-
-                //System.out.println("hooooooooooooooooora" + hora.getText());
 
                 WidgetTime wt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime();
 
@@ -102,6 +96,21 @@ public class MirrorActivity extends GoogleApiActivity {
                 layout.addView(hora, new GridLayout.LayoutParams(
                         GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), GridLayout.CENTER),
                         GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror(), GridLayout.CENTER)));
+
+                if (city.getParent()!=null){
+                    ((ViewGroup)city.getParent()).removeView(city);
+                }
+                layout.addView(city);
+
+                if (temp.getParent()!=null){
+                    ((ViewGroup)temp.getParent()).removeView(temp);
+                }
+                layout.addView(temp);
+
+                if (imageView.getParent()!=null){
+                    ((ViewGroup)imageView.getParent()).removeView(imageView);
+                }
+                layout.addView(imageView);
 
                 someHandler.postDelayed(this, 50);
             }
