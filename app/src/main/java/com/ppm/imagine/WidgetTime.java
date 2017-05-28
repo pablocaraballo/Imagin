@@ -34,8 +34,8 @@ public class WidgetTime extends Widget {
     public WidgetTime(String name) {
         super(name);
 
-        this.posYinMirror = 0f;
-        this.posXinMirror = 80f;
+        this.posYinMirror = 0;
+        this.posXinMirror = 0;
 
         setHoraActual(new String("Europe/Madrid"));
 

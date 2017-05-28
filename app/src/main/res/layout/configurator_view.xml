@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="6"
+        android:rowCount="6"
+        android:useDefaultMargins="true">
+
+    </GridLayout>
+
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions_down"
         android:layout_width="494dp"
@@ -51,11 +61,5 @@
             fab:fab_colorPressed="@color/white_pressed"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

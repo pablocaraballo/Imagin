@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.view.View;
@@ -37,7 +38,7 @@ public class MirrorActivity extends GoogleApiActivity {
     TextView hora;
     TextView city;
     TextView temp;
-    RelativeLayout layout;
+    GridLayout layout;
     ListView currentListview;
     ImageView imageView;
 
@@ -46,7 +47,8 @@ public class MirrorActivity extends GoogleApiActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mirror);
 
-        layout= (RelativeLayout) findViewById(R.id.activity_mirror);
+        //layout= (RelativeLayout) findViewById(R.id.activity_mirror);
+        layout= (GridLayout) findViewById(R.id.gridLayoutInMirror);
         setGetMirrorListener();
         System.out.println("ESPEJOOOO" + User.mirrors.get(Configurator.espejoActual).toString());
 
@@ -91,19 +93,23 @@ public class MirrorActivity extends GoogleApiActivity {
 
                 hora.setText(WidgetTime.timeNow(wt.getHoraActual()));
 
-                hora.setX(wt.getPosXinMirror());
-                hora.setY(wt.getPosYinMirror());
+               // hora.setX(wt.getPosXinMirror());
+                // hora.setY(wt.getPosYinMirror());
 
                 if (hora.getParent()!=null){
                     ((ViewGroup)hora.getParent()).removeView(hora);
                 }
-                layout.addView(hora);
+                layout.addView(hora, new GridLayout.LayoutParams(
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), GridLayout.CENTER),
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror(), GridLayout.CENTER)));
 
                 someHandler.postDelayed(this, 50);
             }
         }, 10);
 
     }
+
+    //FALTA QUE EL TWITTER Y EL TIEMPO TAMBIÉN SE UBIQUEN EN EL GRIDLAYOUT TAL Y COMO LO HAGO AQUI ARRIBA CON 'HORA'
 
     public void refreshListView(){
 
@@ -120,11 +126,12 @@ public class MirrorActivity extends GoogleApiActivity {
             SearchTimeline searchTimeline;
             if (wtt.getUserName() == "") {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getHashtag()).build();
+                System.out.println("IMPRIMO HASHTAG: "+wtt.getHashtag());
             } else {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getUserName()).build();
             }
 
-            final TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
+            TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
             ListView lv = new ListView(MirrorActivity.this);
             lv.setAdapter(timelineAdapter);
 
