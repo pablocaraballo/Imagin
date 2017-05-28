@@ -1,25 +1,15 @@
 package com.ppm.imagine;
 
 import android.os.AsyncTask;
-import android.util.FloatProperty;
 import android.util.Log;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -186,12 +176,12 @@ public class WidgetWeather extends Widget{
 
             }
 
-           if (getCity().equals("Mordor") || getCity().equals("mordor")) {
+           /*if (getCity().equals("Mordor") || getCity().equals("mordor")) {
                 setPathImagen("sauron");
                 setTemp(temSauron.toString());
                                                             //si falla es por esto
 
-            } else {
+            } else {*/
                 switch (ident) {
                     case "01d":
                         setPathImagen("sol");
@@ -244,7 +234,7 @@ public class WidgetWeather extends Widget{
                         setPathImagen("niebla");
                         break;
                 }
-            }
+            //}
         } catch (Throwable t) {
             Log.e("ErrorParsingJSON", "Could not parse malformed JSON: \"" + object + "\"");
         }
