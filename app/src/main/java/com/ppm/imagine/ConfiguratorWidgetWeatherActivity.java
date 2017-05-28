@@ -1,5 +1,6 @@
 package com.ppm.imagine;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -38,9 +39,7 @@ public class ConfiguratorWidgetWeatherActivity extends AppCompatActivity {
 
         final EditText editText = (EditText) findViewById(R.id.city);
         ImageButton imageButton = (ImageButton)findViewById(R.id.cityButton);
-       // ImageView imageView = (ImageView) findViewById(R.id.iconWeather);
-        final TextView temp = (TextView)findViewById(R.id.temp);
-        final TextView cityView = (TextView)findViewById(R.id.cityView);
+
 
 
 
@@ -50,13 +49,7 @@ public class ConfiguratorWidgetWeatherActivity extends AppCompatActivity {
 
                 User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().setCity(editText.getText().toString());
                 User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getWeather(editText.getText().toString());
-                //imageView.setImageDrawable(dr);
-                temp.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getTemp().toString());
-                cityView.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getCity());
 
-                String resourceName = User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPathImagen();
-                ImageView imageView = (ImageView) findViewById(R.id.iconWeather);
-                imageView.setImageResource(getResources().getIdentifier(resourceName, "drawable", getPackageName()));
 
                  Map<String, Object> newTz = new HashMap<String, Object>();
                 newTz.put("pathImagen", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPathImagen());
@@ -65,6 +58,11 @@ public class ConfiguratorWidgetWeatherActivity extends AppCompatActivity {
                 newTz.put("temp", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getTemp().toString());
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getName()).updateChildren(newTz);
 
+                newTz.put("city", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getCity());
+                FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getName()).updateChildren(newTz);
+
+                Intent ListSelector = new Intent(getApplicationContext(), WidgetSelectConfiguratorList.class);
+                startActivity(ListSelector);
             }
         });
 

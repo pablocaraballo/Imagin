@@ -2,23 +2,14 @@ package com.ppm.imagine;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,15 +52,17 @@ public class WidgetWeather extends Widget{
     public WidgetWeather() {
         super();
         this.posYinMirror = 0f;
-        this.posXinMirror = 50f;//1500
-        //defWeather();
+        this.posXinMirror = 800f;//1500
+        setCity(city);
+        //defWeather(); este constuctor no se si lo utilizo en algun lado
     }
 
     public WidgetWeather(String name) {
 	super(name);
 
         this.posYinMirror = 0f;
-        this.posXinMirror = 50f;//1500
+        this.posXinMirror = 800f;//1500
+        setCity(city);
         defWeather();
     }
 
@@ -78,7 +71,7 @@ public class WidgetWeather extends Widget{
     public WidgetWeather(String city,String name) {
 	super(name);
         this.posYinMirror = 0f;
-        this.posXinMirror = 1500f;
+        this.posXinMirror = 800f;//1500
         setCity(city);
         getWeather(city);
     }
@@ -86,7 +79,7 @@ public class WidgetWeather extends Widget{
     public void defWeather(){
             try{
                 convertToJSON(getJSON("http://api.openweathermap.org/data/2.5/weather?q=Bacelona&appid=2de70b6961f101b94a6655b4856e3921",300000000));
-
+                setCity("Barcelona");
             }catch (Exception e){
 
             }
@@ -98,7 +91,7 @@ public class WidgetWeather extends Widget{
 
         try{
             convertToJSON(getJSON("http://api.openweathermap.org/data/2.5/weather?q="+ciudad+"&appid=2de70b6961f101b94a6655b4856e3921",300000000));
-
+            setCity(ciudad);
         }catch (Exception e){
 
         }
@@ -152,7 +145,6 @@ public class WidgetWeather extends Widget{
     }
 
     private void convertToJSON(String object) {
-        String weathers = null;
         String ident = null;
         Double tempAux;
         String temperature;
@@ -164,11 +156,12 @@ public class WidgetWeather extends Widget{
 
             tempAux = Double.parseDouble(String.valueOf(temperature));
             tempAux = tempAux - 273.15;
+            tempAux = Math.rint(tempAux*100)/100;
 
             temperature =tempAux.toString();
 
             setTemp(temperature);
-            System.out.println("DEFWE "+getTemp());
+            Double temSauron = Math.rint((tempAux+300)*100)/100;
 
 
 
@@ -178,121 +171,72 @@ public class WidgetWeather extends Widget{
             for (int i = 0; i < array.length(); i++) {
 
                 obj = array.getJSONObject(i);
-                weathers = obj.getString("description");
                 ident = obj.getString("icon");
                 System.out.println("DEFWE id: "+ident);
 
             }
 
-            /*if (city.equals("Mordor") || city.equals("mordor")) {
-                pathImagen = "R.drawable.sauron";  Falla algo del no properties serializer found on class
+           /*if (getCity().equals("Mordor") || getCity().equals("mordor")) {
+                setPathImagen("sauron");
+                setTemp(temSauron.toString());
+                                                            //si falla es por esto
 
             } else {*/
                 switch (ident) {
                     case "01d":
                         setPathImagen("sol");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
                     case "01n":
                         setPathImagen("luna");
-                        System.out.println("DEFWE "+getPathImagen());
+
                         break;
                     case "02d":
                         setPathImagen("nubladob");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "02n":
                         setPathImagen("nubladob");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "03d":
                         setPathImagen("nubladob");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "03n":
                         setPathImagen("viento");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "04d":
                         setPathImagen("viento");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "04n":
                         setPathImagen("nubladob");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "11d":
                         setPathImagen("rayo");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "09d":
                         setPathImagen("lluvia");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "10d":
                         setPathImagen("arcoiris");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "13d":
                         setPathImagen("nieve");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
 
                     case "50d":
                         setPathImagen("niebla");
-                        System.out.println("DEFWE "+getPathImagen());
                         break;
-
                 }
             //}
-            ///actualizar los valores en FireBase
-            /*Map<String, Object> newTz = new HashMap<String, Object>();
-            newTz.put("pathImagen", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPathImagen());
-            FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getName()).updateChildren(newTz);
-
-            newTz.put("temp", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getTemp().toString());
-            FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getName()).updateChildren(newTz);
-*/
-
         } catch (Throwable t) {
             Log.e("ErrorParsingJSON", "Could not parse malformed JSON: \"" + object + "\"");
         }
     }
-
-    private class DownloadXmlTask extends AsyncTask<String, Void, Void> {
-        public String object;
-
-        @Override
-        protected Void doInBackground(String... urls) {
-            setObject(getJSON(urls[0],300000));
-            System.out.println("Object: "+getObject());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            System.out.println("Object2: "+getObject());
-            convertToJSON(getObject());
-        }
-
-        public String getObject() {
-            return object;
-        }
-
-        public void setObject(String object) {
-            this.object = object;
-        }
-    }
-
-
 }
