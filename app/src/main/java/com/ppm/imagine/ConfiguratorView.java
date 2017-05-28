@@ -23,11 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 
