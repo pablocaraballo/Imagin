@@ -3,8 +3,8 @@ package com.ppm.imagine;
 public class Widget {
 
     String name;
-    Float posXinMirror;
-    Float posYinMirror;
+    int posXinMirror;
+    int posYinMirror;
     Boolean active;
 
     public Boolean getActive() {
@@ -18,8 +18,8 @@ public class Widget {
     public Widget(String name, Float posYinMirror, Float posXinMirror) {
 
         this.name = name;
-        this.posYinMirror = 0f;
-        this.posXinMirror = 0f;
+        this.posYinMirror = 0;
+        this.posXinMirror = 0;
     }
 
     public Widget(String name) {
@@ -39,19 +39,19 @@ public class Widget {
         this.name = name;
     }
 
-    public Float getPosXinMirror() {
+    public int getPosXinMirror() {
         return posXinMirror;
     }
 
-    public void setPosXinMirror(Float posXinMirror) {
+    public void setPosXinMirror(int posXinMirror) {
         this.posXinMirror = posXinMirror;
     }
 
-    public Float getPosYinMirror() {
+    public int getPosYinMirror() {
         return posYinMirror;
     }
 
-    public void setPosYinMirror(Float posYinMirror) {
+    public void setPosYinMirror(int posYinMirror) {
         this.posYinMirror = posYinMirror;
     }
 }

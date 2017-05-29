@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Configurator {
 
     WidgetTime widgetTime;
-    //WidgetWeather widgetWeather;
+    WidgetWeather widgetWeather;
     WidgetTwitter widgetTwitter;
 
     @Exclude
@@ -28,4 +28,8 @@ public class Configurator {
     public void setWidgetTime(WidgetTime widgetTime) {
         this.widgetTime = widgetTime;
     }
+
+    public WidgetWeather getWidgetWeather() { return widgetWeather;}
+
+    public void setWidgetWeather(WidgetWeather widgetWeather) {this.widgetWeather = widgetWeather;}
 }
