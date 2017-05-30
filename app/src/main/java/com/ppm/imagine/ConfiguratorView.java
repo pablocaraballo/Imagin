@@ -62,16 +62,16 @@ public class ConfiguratorView extends Activity {
         weatherInGrid.setImageResource(R.drawable.timewidgetlogo_scaled);
 
         layout.addView(twitterInGrid, new GridLayout.LayoutParams(
-                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), GridLayout.CENTER),
-                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror(), GridLayout.CENTER)));
+                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror(), GridLayout.CENTER),
+                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), GridLayout.CENTER)));
 
         layout.addView(timeInGrid, new GridLayout.LayoutParams(
-                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosXinMirror(), GridLayout.CENTER),
-                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosYinMirror(), GridLayout.CENTER)));
+                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosYinMirror(), GridLayout.CENTER),
+                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosXinMirror(), GridLayout.CENTER)));
 
         layout.addView(weatherInGrid, new GridLayout.LayoutParams(
-                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror(), GridLayout.CENTER),
-                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror(), GridLayout.CENTER)));
+                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror(), GridLayout.CENTER),
+                GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror(), GridLayout.CENTER)));
 
 
         twitterInGrid.setOnLongClickListener(new View.OnLongClickListener() {

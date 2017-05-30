@@ -66,51 +66,48 @@ public class MirrorActivity extends GoogleApiActivity {
                 hora.setTextColor(Color.WHITE);
                 hora.setTextSize(50);
 
-                city.setTextColor(Color.GREEN);
-                city.setTextSize(100);
+                city.setTextColor(Color.WHITE);
+                city.setTextSize(35);
                 city.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getCity());
-                city.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror()-1000);
-                city.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror()+100);
 
-                temp.setTextColor(Color.GREEN);
-                temp.setTextSize(50);
+                temp.setTextColor(Color.WHITE);
+                temp.setTextSize(35);
                 temp.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getTemp().toString());
-                temp.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror()-20);
-                temp.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror()+100);
 
                 imageView.setImageResource(getResources().getIdentifier(resourceName, "drawable", getPackageName()));
-                imageView.setX(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror());
-                imageView.setY(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror());
-
 
                 WidgetTime wt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime();
 
                 hora.setText(WidgetTime.timeNow(wt.getHoraActual()));
 
-               // hora.setX(wt.getPosXinMirror());
-                // hora.setY(wt.getPosYinMirror());
-
                 if (hora.getParent()!=null){
                     ((ViewGroup)hora.getParent()).removeView(hora);
                 }
                 layout.addView(hora, new GridLayout.LayoutParams(
-                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosXinMirror(), GridLayout.CENTER),
-                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosYinMirror(), GridLayout.CENTER)));
+
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosYinMirror(), GridLayout.CENTER),
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosXinMirror(), GridLayout.CENTER)));
 
                 if (city.getParent()!=null){
                     ((ViewGroup)city.getParent()).removeView(city);
                 }
-                layout.addView(city);
+                layout.addView(city, new GridLayout.LayoutParams(
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror()+2, GridLayout.CENTER),
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror(), GridLayout.CENTER)));
 
                 if (temp.getParent()!=null){
                     ((ViewGroup)temp.getParent()).removeView(temp);
                 }
-                layout.addView(temp);
+                layout.addView(temp, new GridLayout.LayoutParams(
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror()+1, GridLayout.CENTER),
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror(), GridLayout.CENTER)));
 
                 if (imageView.getParent()!=null){
                     ((ViewGroup)imageView.getParent()).removeView(imageView);
                 }
-                layout.addView(imageView);
+                layout.addView(imageView, new GridLayout.LayoutParams(
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror(), GridLayout.CENTER),
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror(), GridLayout.CENTER)));
 
                 someHandler.postDelayed(this, 50);
             }
