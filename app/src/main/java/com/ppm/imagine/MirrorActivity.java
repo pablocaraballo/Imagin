@@ -94,8 +94,8 @@ public class MirrorActivity extends GoogleApiActivity {
                     ((ViewGroup)hora.getParent()).removeView(hora);
                 }
                 layout.addView(hora, new GridLayout.LayoutParams(
-                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), GridLayout.CENTER),
-                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror(), GridLayout.CENTER)));
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosXinMirror(), GridLayout.CENTER),
+                        GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosYinMirror(), GridLayout.CENTER)));
 
                 if (city.getParent()!=null){
                     ((ViewGroup)city.getParent()).removeView(city);
