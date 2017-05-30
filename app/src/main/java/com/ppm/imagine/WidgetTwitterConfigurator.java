@@ -55,10 +55,6 @@ implements View.OnClickListener{
         username = (EditText) findViewById(R.id.user_text);
         hashtag =(EditText) findViewById(R.id.hashtag_text);
 
-        // A FIREBASE FALTA COGER LA QUERY DE LA DB Y
-        // UNA VEZ HECHO ESTO MIRAR COMO PASARLE EL LISTVIEW PARA MOSTRARLO EN EL MIRROR  (QUE SE LLAME DEL MIRROR)
-
-
         findViewById(R.id.accept_user).setOnClickListener(this);
 
         findViewById(R.id.accept_hashtag).setOnClickListener(this);

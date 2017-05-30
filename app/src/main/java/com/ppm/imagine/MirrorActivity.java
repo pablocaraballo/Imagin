@@ -86,6 +86,7 @@ public class MirrorActivity extends GoogleApiActivity {
                     ((ViewGroup)hora.getParent()).removeView(hora);
                 }
                 layout.addView(hora, new GridLayout.LayoutParams(
+
                         GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosYinMirror(), GridLayout.CENTER),
                         GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosXinMirror(), GridLayout.CENTER)));
 
@@ -179,8 +180,8 @@ public class MirrorActivity extends GoogleApiActivity {
                /* if (User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getHashtag() != m.getConfigurator().getWidgetTwitter().getHashtag() ||
                         User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName() != m.getConfigurator().getWidgetTwitter().getUserName()){*/
 
-                    System.out.println("WIDGETW  CHILDCHANGED");
-                    refreshListView();
+                System.out.println("WIDGETW  CHILDCHANGED");
+                refreshListView();
 
                 //}
             }
