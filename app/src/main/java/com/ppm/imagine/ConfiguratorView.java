@@ -55,6 +55,7 @@ public class ConfiguratorView extends Activity {
         twitterInGrid.setClickable(true);
         twitterInGrid.setLongClickable(true);
 
+
         timeInGrid =  new ImageView(this);
         weatherInGrid = new ImageView(this);
         twitterInGrid.setImageResource(R.drawable.twitter_icon_scaled);
@@ -73,8 +74,7 @@ public class ConfiguratorView extends Activity {
                 GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror(), GridLayout.CENTER),
                 GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror(), GridLayout.CENTER)));
 
-
-        twitterInGrid.setOnLongClickListener(new View.OnLongClickListener() {
+        /*twitterInGrid.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 System.out.println("ME HAS TOCADO");
@@ -84,23 +84,24 @@ public class ConfiguratorView extends Activity {
                 ClipData dragData = new ClipData(v.getTag().toString(),mimeTypes, item);
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(twitterInGrid);
 
-
                 v.startDrag(dragData,myShadow,null,0);
 
                 return true;
             }
-        });
+        });*/
 
         System.out.println("INICIO "+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror());
         System.out.println("INICIO2 "+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror());
-        twitterInGrid.setOnDragListener(new View.OnDragListener() {
+
+        /*twitterInGrid.setOnDragListener(new View.OnDragListener() {
+
             @Override
            public boolean onDrag(View v, DragEvent event) {
 
                 int x_cord=0;
                 int y_cord=0;
 
-                System.out.println("INICIO "+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror());
+                System.out.println("INICIODENTRO "+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror());
                 //String clipData = event.getClipDescription().getLabel().toString();
 
                 switch(event.getAction()) {
@@ -134,7 +135,7 @@ public class ConfiguratorView extends Activity {
 
                     case DragEvent.ACTION_DRAG_ENDED   :
                         Log.d("HE ACABADO", "Action is DragEvent.ACTION_DRAG_ENDED");
-
+                        twitterInGrid.setVisibility(View.VISIBLE);
                         break;
 
                     case DragEvent.ACTION_DROP:
@@ -150,24 +151,63 @@ public class ConfiguratorView extends Activity {
                 }
                 return true;
             }
-        });
+        });*/
 
         //https://www.tutorialspoint.com/android/android_drag_and_drop.htm
 
         twitterInGrid.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
+                switch (event.getAction()){
+
+                    case MotionEvent.ACTION_DOWN:
+                        System.out.println("ME HAS TOCADO LEVEMENTE");
+                        twitterInGrid.setVisibility(View.INVISIBLE);
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        ClipData data = ClipData.newPlainText("", "");
+                        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+
+                        System.out.println("ME MUEVO");
+                        twitterInGrid.startDrag(data, shadowBuilder, v, 0);
+                        System.out.println("DRAGPOSX "+v.getX());
+
+
+                        return true;
+
+                    case MotionEvent.ACTION_UP:
+                        System.out.println("HE PARADO");
+                        System.out.println("DRAGPOSXFINAL "+v.getX());
+                        twitterInGrid.setVisibility(View.VISIBLE);
+                        return true;
+
+                }
+                /*if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     ClipData data = ClipData.newPlainText("", "");
-                    View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(twitterInGrid);
+                    View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
 
                     System.out.println("ME HAS TOCADO LEVEMENTE");
-                    twitterInGrid.startDrag(data, shadowBuilder, twitterInGrid, 0);
+                    twitterInGrid.startDrag(data, shadowBuilder, v, 0);
                     twitterInGrid.setVisibility(View.INVISIBLE);
                     return true;
-                } else {
-                    return false;
                 }
+                else if(event.getAction() == MotionEvent.ACTION_UP){
+                    System.out.println("HE PARADO");
+                    User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setPosXinMirror((int) event.getX());
+                    User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setPosYinMirror((int) event.getY());
+
+                    twitterInGrid.setVisibility(View.VISIBLE);
+
+                    return true;
+                }
+                else{
+                    System.out.println("ESTOY FALSE");
+                    return false;
+                }*/
+                return true;
+
+
             }
         });
 
@@ -190,13 +230,12 @@ public class ConfiguratorView extends Activity {
                 startActivity(new Intent(getApplicationContext(),StartMenuActivity.class));
             }
         });
+
+
 }
   
     @Override
     public void onBackPressed() {
-
-
         startActivity(new Intent(ConfiguratorView.this, StartMenuActivity.class));
-
     }
 }

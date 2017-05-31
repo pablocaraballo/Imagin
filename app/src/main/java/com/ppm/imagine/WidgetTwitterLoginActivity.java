@@ -51,13 +51,16 @@ public class WidgetTwitterLoginActivity extends AppCompatActivity {
                 String msg = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
-                User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setUserName(session.getUserName());
+                User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setCurrentUserName(session.getUserName());
 
                 //Active Widget Twitter
                 User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setActive(true);
                 Map<String, Object> newTw = new HashMap<String, Object>();
                 newTw.put("active", true);
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
+                newTw.put("currentUserName", session.getUserName());
+                FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
+
 
                 //Go to configure Twitter Timeline
                 Intent twitterFilters=new Intent(getApplicationContext(), WidgetTwitterConfigurator.class);

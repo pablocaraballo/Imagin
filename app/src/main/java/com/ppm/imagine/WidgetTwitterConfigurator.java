@@ -55,39 +55,33 @@ implements View.OnClickListener{
         username = (EditText) findViewById(R.id.user_text);
         hashtag =(EditText) findViewById(R.id.hashtag_text);
 
+        deleteFilters();
+
         findViewById(R.id.accept_user).setOnClickListener(this);
 
         findViewById(R.id.accept_hashtag).setOnClickListener(this);
 
-        /*runOnUiThread(new Runnable() {
+        final Handler someHandler = new Handler(getMainLooper());
+        someHandler.postDelayed(new Runnable() {
+            @Override
             public void run() {
 
-                    if (username.getText().toString().trim().length() != 0) {
-                        acceptHashtag.setEnabled(false);
-                    } else if (hashtag.getText().toString().trim().length() != 0) {
-                        acceptUser.setEnabled(false);
-                    }
-
-            }
-        });*/
-
-        /*new Thread(new Runnable(){
-            public void run() {
-
-                while(true)
-                {
-                    try {
-                        Thread.sleep(100);
-
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    //REST OF CODE HERE//
+                if (username.getText().toString().trim().length() != 0) {
+                    hashtag.setEnabled(false);
+                    findViewById(R.id.accept_hashtag).setEnabled(false);
+                } else if (hashtag.getText().toString().trim().length() != 0) {
+                    findViewById(R.id.accept_user).setEnabled(false);
+                    username.setEnabled(false);
                 }
-
+                else if(username.getText().toString().trim().length() == 0 || hashtag.getText().toString().trim().length() == 0){
+                    hashtag.setEnabled(true);
+                    findViewById(R.id.accept_hashtag).setEnabled(true);
+                    findViewById(R.id.accept_user).setEnabled(true);
+                    username.setEnabled(true);
+                }
+                someHandler.postDelayed(this, 50);
             }
-        }).start();*/
+        }, 10);
     }
 
     //Write in memory and Firebase DB  which filter selected
@@ -98,24 +92,23 @@ implements View.OnClickListener{
                 User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setUserName(username.getText().toString());
                 newTw.put("userName", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName());
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
-
-                System.out.print("FIREBASEREAD "+FirebaseDatabase.getInstance().getReference("/users/"+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/"+ User.mirrors.get(Configurator.espejoActual).id+"/configurator/"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw));
-
-                /*Intent intent=new Intent(WidgetTwitterConfigurator.this, TimeLineActivity.class);
-                intent.putExtra("username", username.getText().toString());
-                startActivity(intent);*/
                 break;
 
             case R.id.accept_hashtag:
                 User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setHashtag(hashtag.getText().toString());
                 newTw.put("hashtag", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getHashtag());
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
-
-                /* Intent intent2=new Intent(WidgetTwitterConfigurator.this, TimeLineActivity.class);
-                intent2.putExtra("hashtag", hashtag.getText().toString());
-                startActivity(intent2);*/
                 break;
         }
+    }
+
+    //Delete all filters in FirebaseDB
+    public void deleteFilters(){
+        newTw.put("userName","");
+        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
+
+        newTw.put("hashtag", "");
+        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
     }
 }
 
