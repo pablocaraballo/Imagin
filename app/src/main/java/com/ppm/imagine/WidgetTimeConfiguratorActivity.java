@@ -1,28 +1,25 @@
 package com.ppm.imagine;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class WidgetTimeConfiguratorActivity extends AppCompatActivity {
+
+    EditText inputSearch;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +34,8 @@ public class WidgetTimeConfiguratorActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         ListView listView= (ListView) findViewById(R.id.listViewRegions);
-        List<String> listLocales= new ArrayList<String>();
 
-        for (int i=0; i<WidgetTime.zonas.length; i++){
-
-            listLocales.add(WidgetTime.zonas[i]);
-            System.out.println(WidgetTime.zonas[i]);
-
-        }
-
-        WidgetTimeConfiguratorListViewAdapter adapter= new WidgetTimeConfiguratorListViewAdapter(this, listLocales);
+        adapter = new ArrayAdapter<>(this, R.layout.widget_time_configurator_list_item, R.id.itemLocaleListViewText, WidgetTime.zonas);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,58 +53,29 @@ public class WidgetTimeConfiguratorActivity extends AppCompatActivity {
             }
         });
 
-    }
+        inputSearch = (EditText) findViewById(R.id.timezoneInputSearch);
+        inputSearch.addTextChangedListener(new TextWatcher() {
 
-    public class WidgetTimeConfiguratorListViewAdapter extends BaseAdapter{
-
-        Context context;
-        List<String> llistatLocales;
-
-        public WidgetTimeConfiguratorListViewAdapter(Context context, List<String> items){
-
-            this.context= context;
-            this.llistatLocales=items;
-
-        }
-
-        @Override
-        public int getCount() {
-            return llistatLocales.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View rowView = convertView;
-
-            if (convertView == null) {
-                // Create a new view into the list.
-                LayoutInflater inflater = (LayoutInflater) context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                rowView = inflater.inflate(R.layout.widget_time_configurator_list_item, parent, false);
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                WidgetTimeConfiguratorActivity.this.adapter.getFilter().filter(cs);
             }
 
-            // Set data into the view.
-            TextView itemLocaleText = (TextView) rowView.findViewById(R.id.itemLocaleListViewText);
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
 
-            String item = this.llistatLocales.get(position);
-            itemLocaleText.setText(item);
+                WidgetTimeConfiguratorActivity.this.adapter.getFilter().filter(arg0);
+            }
 
-            return rowView;
+            @Override
+            public void afterTextChanged(Editable arg0) {
 
-        }
+            }
+        });
+
     }
-
 }
 
 

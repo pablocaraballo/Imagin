@@ -8,7 +8,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
+import android.view.Display;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -123,6 +125,12 @@ public class MirrorActivity extends GoogleApiActivity {
 
     public void refreshListView(){
 
+        Display display = getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();
+        double ratio = ((float) (width))/300.0;
+        int height = (int)(ratio*50);
+
+
         layout.removeView(currentListview);
 
         System.out.println("WIDGETW DENTRO REFRESH");
@@ -152,7 +160,12 @@ public class MirrorActivity extends GoogleApiActivity {
             }
 
             currentListview=lv;
-            layout.addView(lv);
+
+
+
+            layout.addView(lv, new GridLayout.LayoutParams(
+                    GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror(), GridLayout.CENTER),
+                    GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), GridLayout.CENTER)));
         }
     }
 
