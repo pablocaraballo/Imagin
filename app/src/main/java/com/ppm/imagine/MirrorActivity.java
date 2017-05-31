@@ -41,6 +41,7 @@ public class MirrorActivity extends GoogleApiActivity {
     GridLayout layout;
     ListView currentListview;
     ImageView imageView;
+    SearchTimeline searchTimeline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class MirrorActivity extends GoogleApiActivity {
         city =new TextView(MirrorActivity.this);
         temp = new TextView(MirrorActivity.this);
         imageView = new ImageView(MirrorActivity.this);
+
+        defaultTimeLine();
 
         final Handler someHandler = new Handler(getMainLooper());
         someHandler.postDelayed(new Runnable() {
@@ -130,11 +133,14 @@ public class MirrorActivity extends GoogleApiActivity {
             System.out.println("WIDGETW ISACTIVE TRUE");
 
             //CONTROLAR QUE PASA SI LOS DOS CAMPOS ESTAN RELLENO (ELSE IF)
-            SearchTimeline searchTimeline;
-            if (wtt.getUserName() == "") {
+
+            if (wtt.getUserName().isEmpty() ) {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getHashtag()).build();
-            } else {
+                System.out.println("DENTROHASTAG "+wtt.getHashtag());
+
+            }else if(wtt.getHashtag().isEmpty()) {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getUserName()).build();
+                System.out.println("DENTROUSERNAME "+wtt.getUserName());
             }
 
             TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
@@ -169,6 +175,7 @@ public class MirrorActivity extends GoogleApiActivity {
 
                 System.out.println("WIDGETW  CHILDCHANGED");
                 refreshListView();
+                defaultTimeLine();
 
                 //}
             }
@@ -191,4 +198,27 @@ public class MirrorActivity extends GoogleApiActivity {
         });
     }
 
+    public void defaultTimeLine(){
+        layout.removeView(currentListview);
+        WidgetTwitter wtt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
+
+        if (wtt.getActive()) {
+
+            if(!wtt.getCurrentUserName().isEmpty() && wtt.getHashtag().isEmpty() && wtt.getUserName().isEmpty() ){
+                System.out.println("TUTIMELINE!!");
+                System.out.println("DENTROCURRENTUSERNAME "+wtt.getCurrentUserName());
+                searchTimeline = new SearchTimeline.Builder().query(wtt.getCurrentUserName()).build();
+            }
+
+            TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
+            ListView lv = new ListView(MirrorActivity.this);
+            lv.setAdapter(timelineAdapter);
+
+            if (lv.getParent() != null) {
+                ((ViewGroup) lv.getParent()).removeView(lv);
+            }
+            currentListview=lv;
+            layout.addView(lv);
+        }
+    }
 }

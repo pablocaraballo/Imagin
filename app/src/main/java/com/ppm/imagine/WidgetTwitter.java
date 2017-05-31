@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 public class WidgetTwitter extends Widget {
 
+    String currentUserName=" ";
     String userName=" ";
     String hashtag=" ";
 
@@ -18,6 +19,14 @@ public class WidgetTwitter extends Widget {
         this.setActive(false);
         setPosXinMirror(0);
         setPosYinMirror(1);
+    }
+
+    public String getCurrentUserName() {
+        return currentUserName;
+    }
+
+    public void setCurrentUserName(String currentUserName) {
+        this.currentUserName = currentUserName;
     }
 
     public String getHashtag() {
