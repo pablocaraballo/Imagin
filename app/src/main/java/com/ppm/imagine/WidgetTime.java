@@ -1,6 +1,13 @@
 package com.ppm.imagine;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +32,7 @@ public class WidgetTime extends Widget {
 
     String horaActual;
     public static String zonas[]= TimeZone.getAvailableIDs();
+    TextView hora;
 
     public WidgetTime(){
 
@@ -43,7 +51,7 @@ public class WidgetTime extends Widget {
 
             System.out.println("TIEMPO DE ZONAS "+ zonas[i].toString());
         }
-    } 
+    }
 
     public String getHoraActual() {
         return horaActual;
@@ -64,97 +72,33 @@ public class WidgetTime extends Widget {
 
     }
 
-    /***
-     *
-     * Versión antigua del código que se mantiene para informar
-     * sobre el funcionamiento de las peticiones GET que retornan JSON.
-     *
-     ***
-    //final String API_KEY= "711065WCUGQR";
-    //String resultadoJSON;
-    //ArrayList<Time> lista_tiempos;
 
-    public WidgetTime(String name) throws JSONException {
-        super(name);
+    public void startThread(Context context){
 
-        lista_tiempos = new ArrayList<Time>();
-        resultadoJSON= getJSONTimezones("http://api.timezonedb.com/v2/list-time-zone?key="+API_KEY+"&format=json", 3000);
-        convertToJSON(resultadoJSON);
+        final Handler someHandler = new Handler(context.getMainLooper());
+        someHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                hora.setText(WidgetTime.timeNow(getHoraActual()));
+
+                someHandler.postDelayed(this, 50);
+            }
+        }, 10);
     }
 
-    public String getJSONTimezones(String url, int timeout) {
-        HttpURLConnection c = null;
-        try {
-            URL u = new URL(url);
-            c = (HttpURLConnection) u.openConnection();
-            c.setRequestMethod("GET");
-            c.setRequestProperty("Content-length", "0");
-            c.setUseCaches(false);
-            c.setAllowUserInteraction(false);
-            c.setConnectTimeout(timeout);
-            c.setReadTimeout(timeout);
-            c.connect();
-            int status = c.getResponseCode();
+    public void createView(Context context){
+        hora = new TextView(context);
 
-            switch (status) {
-                case 200:
-                case 201:
-                    BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line+"\n");
-                    }
-                    br.close();
-                    return sb.toString();
-            }
+        hora.setTextColor(Color.WHITE);
+        hora.setTextSize(20);
 
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (c != null) {
-                try {
-                    c.disconnect();
-                } catch (Exception ex) {
-                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return null;
+        hora.setText(WidgetTime.timeNow(getHoraActual()));
+
     }
 
-    public void convertToJSON(String object){
+    public View getView() {
+        return hora;
 
-        try {
-
-            JSONObject obj= new JSONObject(object);
-            JSONArray array = obj.getJSONArray("zones");
-
-            for (int i=0; i<array.length();i++){
-
-                Time t1= new Time();
-                obj= array.getJSONObject(i);
-                t1.setCountryCode(obj.getString("countryCode"));
-                t1.setCountryName(obj.getString("countryName"));
-                //t1.setHourTime(obj.getString("timestamp"));
-                t1.setHourTime(t1.timestampToDate(Long.parseLong(obj.getString("timestamp"))));
-                //System.out.println("TIMEEE " + t1.getHourTime());
-                addTimetoArray(t1);
-                //Log.d("ParsingJSONTime", t1.toString());
-
-            }
-
-        } catch (Throwable t) {
-            Log.e("ErrorParsingJSON", "Could not parse malformed JSON: \"" + object + "\"");
-        }
     }
-
-    public void addTimetoArray(Time temps){
-
-        if (temps!=null) lista_tiempos.add(temps);
-
-    }*/
-
 }

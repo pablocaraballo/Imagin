@@ -213,6 +213,7 @@ public class StartMenuActivity extends GoogleApiActivity {
                 System.out.println("WIIIIIDGET"+dataSnapshot.toString());
                 dataSnapshot.getKey();
                 Mirror m = dataSnapshot.getValue(Mirror.class);
+                m.init(getApplicationContext());
                 User.addMirrorToArray(m);
 
             }

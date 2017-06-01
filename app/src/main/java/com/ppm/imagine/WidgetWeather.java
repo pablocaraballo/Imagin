@@ -1,9 +1,15 @@
 package com.ppm.imagine;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -44,6 +50,7 @@ public class WidgetWeather extends Widget{
     }
 
 
+    TextView textView;
 
     public WidgetWeather() {
         super();
@@ -51,6 +58,16 @@ public class WidgetWeather extends Widget{
         this.posXinMirror = 0;
         setCity(city);
         //defWeather(); este constuctor no se si lo utilizo en algun lado
+    }
+
+    public void init(Context context){
+        textView = new TextView(context);
+        textView.setText("this is weather");
+    }
+
+    @Override
+    public View getView() {
+        return textView;
     }
 
     public WidgetWeather(String name) {

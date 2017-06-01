@@ -1,6 +1,9 @@
 package com.ppm.imagine;
 
-public class Widget {
+import android.content.Context;
+import android.view.View;
+
+public abstract class Widget {
 
     String name;
     int posXinMirror;
@@ -30,6 +33,21 @@ public class Widget {
     public Widget(){
 
     }
+
+    public void init(Context context){
+        createView(context);
+        startThread(context);
+    }
+
+    public void createView(Context context){
+
+    }
+
+    public void startThread(Context context){
+
+    }
+
+    public abstract View getView();
 
     public String getName() {
         return name;

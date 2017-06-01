@@ -1,5 +1,7 @@
 package com.ppm.imagine;
 
+import android.content.Context;
+
 import com.google.firebase.database.Exclude;
 
 public class Mirror {
@@ -19,6 +21,12 @@ public class Mirror {
 
     public Mirror(String name) {
         this.name = name;
+    }
+
+    public void init(Context context){
+        configurator.getWidgetTime().init(context);
+        configurator.getWidgetTwitter().init(context);
+        configurator.getWidgetWeather().init(context);
     }
 
     @Exclude

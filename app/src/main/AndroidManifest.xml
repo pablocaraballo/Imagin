@@ -8,25 +8,25 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashActivity" />
-        <activity android:name=".FirebaseConnection" />
-        <activity android:name=".StartMenuActivity" />
-        <activity android:name=".ConfiguratorView" />
-        <activity android:name=".MirrorActivity" />
-        <activity android:name=".WidgetSelectConfiguratorList">
+        <activity android:name=".SplashActivity" android:screenOrientation="portrait"> </activity>
+        <activity android:name=".FirebaseConnection" android:screenOrientation="portrait"> </activity>
+        <activity android:name=".StartMenuActivity" android:screenOrientation="portrait"> </activity>
+        <activity android:name=".ConfiguratorView" android:screenOrientation="portrait"> </activity>
+        <activity android:name=".MirrorActivity" android:screenOrientation="portrait"> </activity>
+        <activity android:name=".WidgetSelectConfiguratorList" android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ppm.imagine.ConfiguratorView" />
         </activity>
-        <activity android:name=".ConfiguratorWidgetWeatherActivity"></activity>
-        <activity android:name=".WidgetTwitterConfigurator">
+        <activity android:name=".ConfiguratorWidgetWeatherActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".WidgetTwitterConfigurator" android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ppm.imagine.WidgetSelectConfiguratorList" />
@@ -37,14 +37,14 @@
             android:value="158214180a194901e801f1e49d85ffc7c8ff8fb5" />
 
 
-        <activity android:name=".WidgetTimeConfiguratorActivity"
+        <activity android:name=".WidgetTimeConfiguratorActivity" android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ppm.imagine.WidgetSelectConfiguratorList" />
         </activity>
-        <activity android:name=".WidgetTwitterLoginActivity">
+        <activity android:name=".WidgetTwitterLoginActivity" android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ppm.imagine.WidgetSelectConfiguratorList" />

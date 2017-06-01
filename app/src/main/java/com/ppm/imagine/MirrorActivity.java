@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Display;
 import android.widget.GridLayout;
@@ -30,13 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import static android.os.Looper.getMainLooper;
 
 public class MirrorActivity extends GoogleApiActivity {
 
@@ -57,6 +52,9 @@ public class MirrorActivity extends GoogleApiActivity {
     ImageView imageView;
     SearchTimeline searchTimeline;
 
+
+    MirrorActivityAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +68,113 @@ public class MirrorActivity extends GoogleApiActivity {
         meteoExists=false;
         horaExists=false;
 
-        fillLayout();
+        //fillLayout();
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size= new Point();
+        display.getSize(size);
+
+        Mirror m = User.mirrors.get(Configurator.espejoActual);
+        Widget[] widgets =new Widget[15];
+        widgets[0] = m.getConfigurator().getWidgetTime();
+        widgets[1] = m.getConfigurator().getWidgetWeather();
+        widgets[2] = m.getConfigurator().getWidgetTwitter();
+
+        // set up the RecyclerView
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvNumbers);
+        int numberOfColumns = 3;
+        recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+        adapter = new MirrorActivityAdapter(this, widgets, numberOfColumns, size);
+        //adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
+
     }
+
+
+
+
+
+    public void setGetMirrorListener(){
+
+        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                System.out.println("MIrrorActivity" + "onCHildChangeld");
+                Mirror m = dataSnapshot.getValue(Mirror.class);
+
+                if (!m.getConfigurator().getWidgetTwitter().getUserName().isEmpty() || !m.getConfigurator().getWidgetTwitter().getHashtag().isEmpty()){
+                    m.getConfigurator().getWidgetTwitter().createView(getApplicationContext());
+                }
+
+                else defaultTimeLine();
+
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void defaultTimeLine(){
+
+        if (twitterExists) ((RelativeLayout) findViewById(currentTwitterId)).removeView(currentTwitterLayout);
+        WidgetTwitter wtt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
+
+        if (wtt.getActive()) {
+
+            if(!wtt.getCurrentUserName().isEmpty() && wtt.getHashtag().isEmpty() && wtt.getUserName().isEmpty() ){
+
+                System.out.println("TUTIMELINE!!");
+                System.out.println("DENTROCURRENTUSERNAME "+wtt.getCurrentUserName());
+                searchTimeline = new SearchTimeline.Builder().query(wtt.getCurrentUserName()).build();
+
+                TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
+                ListView lv = new ListView(MirrorActivity.this);
+                lv.setAdapter(timelineAdapter);
+
+                if (lv.getParent() != null) {
+                    ((ViewGroup) lv.getParent()).removeView(lv);
+                }
+
+                int id = getResources().getIdentifier("rl"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror()+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), "id", getPackageName() );
+                RelativeLayout twitter= (RelativeLayout) findViewById(id);
+                twitter.getLayoutParams().height=400;
+                twitter.getLayoutParams().width=450;
+
+                twitter.addView(lv);
+
+                currentTwitterId= id;
+                currentTwitterLayout = lv;
+                twitterExists=true;
+
+                //currentListview=lv;
+                //layout.addView(lv);
+            }
+
+        }
+    }
+
 
     void fillLayout(){
 
@@ -171,7 +274,7 @@ public class MirrorActivity extends GoogleApiActivity {
     //FALTA QUE EL TWITTER Y EL TIEMPO TAMBIÉN SE UBIQUEN EN EL GRIDLAYOUT TAL Y COMO LO HAGO AQUI ARRIBA CON 'HORA'.
     //HABRÁ QUE PREGUNTAR A GERARD PORQUE PARECE NO CAMBIAR LA POSICIÓN CUANDO SE MODIFICA.
 
-    public void refreshListView(){
+   /* public void refreshListView(){
 
         if (twitterExists) {
 
@@ -206,8 +309,8 @@ public class MirrorActivity extends GoogleApiActivity {
 
             int id = getResources().getIdentifier("rl"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror()+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), "id", getPackageName() );
             RelativeLayout twitter= (RelativeLayout) findViewById(id);
-            twitter.getLayoutParams().height=750;
-            twitter.getLayoutParams().width=800;
+            twitter.getLayoutParams().height=400;
+            twitter.getLayoutParams().width=450;
 
             twitter.addView(lv);
 
@@ -216,98 +319,5 @@ public class MirrorActivity extends GoogleApiActivity {
             twitterExists=true;
 
         }
-    }
-
-    public void setGetMirrorListener(){
-
-        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                Mirror m = dataSnapshot.getValue(Mirror.class);
-
-                if (!m.getConfigurator().getWidgetTwitter().getUserName().isEmpty() || !m.getConfigurator().getWidgetTwitter().getHashtag().isEmpty()){
-
-                    refreshListView();
-
-                }
-
-                else defaultTimeLine();
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    //TESTING
-    void fillLayout2(){
-        for(int i=0; i<3; i++){
-            for(int j=0; j<6; j++){
-                TextView tv = new TextView(this);
-                tv.setText(i + "," + j);
-                int id = getResources().getIdentifier("rl"+i+j, "id", getPackageName() );
-                ((RelativeLayout) findViewById(id)).addView(tv);
-            }
-        }
-    }
-
-    public void defaultTimeLine(){
-
-        if (twitterExists) ((RelativeLayout) findViewById(currentTwitterId)).removeView(currentTwitterLayout);
-        WidgetTwitter wtt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
-
-        if (wtt.getActive()) {
-
-            if(!wtt.getCurrentUserName().isEmpty() && wtt.getHashtag().isEmpty() && wtt.getUserName().isEmpty() ){
-
-                System.out.println("TUTIMELINE!!");
-                System.out.println("DENTROCURRENTUSERNAME "+wtt.getCurrentUserName());
-                searchTimeline = new SearchTimeline.Builder().query(wtt.getCurrentUserName()).build();
-
-                TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
-                ListView lv = new ListView(MirrorActivity.this);
-                lv.setAdapter(timelineAdapter);
-
-                if (lv.getParent() != null) {
-                    ((ViewGroup) lv.getParent()).removeView(lv);
-                }
-
-                int id = getResources().getIdentifier("rl"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror()+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), "id", getPackageName() );
-                RelativeLayout twitter= (RelativeLayout) findViewById(id);
-                twitter.getLayoutParams().height=750;
-                twitter.getLayoutParams().width=800;
-
-                twitter.addView(lv);
-
-                currentTwitterId= id;
-                currentTwitterLayout = lv;
-                twitterExists=true;
-
-                //currentListview=lv;
-                //layout.addView(lv);
-            }
-
-        }
-    }
+    }*/
 }
