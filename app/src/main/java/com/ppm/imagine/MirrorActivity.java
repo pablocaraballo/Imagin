@@ -133,22 +133,14 @@ public class MirrorActivity extends GoogleApiActivity {
 
         layout.removeView(currentListview);
 
-        System.out.println("WIDGETW DENTRO REFRESH");
         WidgetTwitter wtt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
 
         if (wtt.getActive()) {
 
-            System.out.println("WIDGETW ISACTIVE TRUE");
-
-            //CONTROLAR QUE PASA SI LOS DOS CAMPOS ESTAN RELLENO (ELSE IF)
-
             if (wtt.getUserName().isEmpty() ) {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getHashtag()).build();
-                System.out.println("DENTROHASTAG "+wtt.getHashtag());
-
             }else if(wtt.getHashtag().isEmpty()) {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getUserName()).build();
-                System.out.println("DENTROUSERNAME "+wtt.getUserName());
             }
 
             TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
@@ -160,8 +152,6 @@ public class MirrorActivity extends GoogleApiActivity {
             }
 
             currentListview=lv;
-
-
 
             layout.addView(lv, new GridLayout.LayoutParams(
                     GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror(), GridLayout.CENTER),
@@ -183,14 +173,9 @@ public class MirrorActivity extends GoogleApiActivity {
 
                 Mirror m = dataSnapshot.getValue(Mirror.class);
 
-               /* if (User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getHashtag() != m.getConfigurator().getWidgetTwitter().getHashtag() ||
-                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName() != m.getConfigurator().getWidgetTwitter().getUserName()){*/
-
                 System.out.println("WIDGETW  CHILDCHANGED");
                 refreshListView();
                 defaultTimeLine();
-
-                //}
             }
 
             @Override
