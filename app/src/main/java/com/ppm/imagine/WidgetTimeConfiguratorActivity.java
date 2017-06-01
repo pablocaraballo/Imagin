@@ -1,6 +1,7 @@
 package com.ppm.imagine;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,12 +27,17 @@ public class WidgetTimeConfiguratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_widget_time_configurator);
 
+        //Creación de la toolbar.
+
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar_widgetsTime);
+        toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(getResources().getString(R.string.widgetTimeConfigurator_title));
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        //Creación del listView y la unión con su adaptador.
 
         ListView listView= (ListView) findViewById(R.id.listViewRegions);
 

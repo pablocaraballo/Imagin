@@ -2,6 +2,7 @@ package com.ppm.imagine;
 
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +32,8 @@ public class ConfiguratorWidgetWeatherActivity extends AppCompatActivity {
         final ImageView img = (ImageView)findViewById(R.id.imgWeather);
         Button aceptar = (Button)findViewById(R.id.aceptar);
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar_widgetsWeather);
-        toolbar.setTitle("Previsualizacion");
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitle(res.getString(R.string.titleConfiguratorWidget));
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
