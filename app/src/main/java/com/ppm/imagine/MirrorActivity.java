@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,13 +28,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
-
 import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import static android.os.Looper.getMainLooper;
 
 public class MirrorActivity extends GoogleApiActivity {
@@ -168,9 +164,6 @@ public class MirrorActivity extends GoogleApiActivity {
         }, 10);
     }
 
-    //FALTA QUE EL TWITTER Y EL TIEMPO TAMBIÉN SE UBIQUEN EN EL GRIDLAYOUT TAL Y COMO LO HAGO AQUI ARRIBA CON 'HORA'.
-    //HABRÁ QUE PREGUNTAR A GERARD PORQUE PARECE NO CAMBIAR LA POSICIÓN CUANDO SE MODIFICA.
-
     public void refreshListView(){
 
         if (twitterExists) {
@@ -178,22 +171,14 @@ public class MirrorActivity extends GoogleApiActivity {
             ((RelativeLayout) findViewById(currentTwitterId)).removeView(currentTwitterLayout);
         }
 
-        System.out.println("WIDGETW DENTRO REFRESH");
         WidgetTwitter wtt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter();
 
         if (wtt.getActive()) {
 
-            System.out.println("WIDGETW ISACTIVE TRUE");
-
-            //CONTROLAR QUE PASA SI LOS DOS CAMPOS ESTAN RELLENO (ELSE IF)
-
             if (wtt.getUserName().isEmpty() ) {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getHashtag()).build();
-                System.out.println("DENTROHASTAG "+wtt.getHashtag());
-
             }else if(wtt.getHashtag().isEmpty()) {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getUserName()).build();
-                System.out.println("DENTROUSERNAME "+wtt.getUserName());
             }
 
             TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
@@ -208,13 +193,11 @@ public class MirrorActivity extends GoogleApiActivity {
             RelativeLayout twitter= (RelativeLayout) findViewById(id);
             twitter.getLayoutParams().height=400;
             twitter.getLayoutParams().width=450;
-
             twitter.addView(lv);
 
             currentTwitterId= id;
             currentTwitterLayout = lv;
             twitterExists=true;
-
         }
     }
 
@@ -231,15 +214,10 @@ public class MirrorActivity extends GoogleApiActivity {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
                 Mirror m = dataSnapshot.getValue(Mirror.class);
-
                 if (!m.getConfigurator().getWidgetTwitter().getUserName().isEmpty() || !m.getConfigurator().getWidgetTwitter().getHashtag().isEmpty()){
-
                     refreshListView();
-
                 }
-
                 else defaultTimeLine();
-
             }
 
             @Override
@@ -303,9 +281,6 @@ public class MirrorActivity extends GoogleApiActivity {
                 currentTwitterId= id;
                 currentTwitterLayout = lv;
                 twitterExists=true;
-
-                //currentListview=lv;
-                //layout.addView(lv);
             }
 
         }

@@ -45,7 +45,7 @@
             fab:fab_title="Añadir/Modificar widget"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/button_gone"
+            android:id="@+id/button_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"

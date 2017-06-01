@@ -92,12 +92,14 @@ implements View.OnClickListener{
                 User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setUserName(username.getText().toString());
                 newTw.put("userName", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName());
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
+                this.startActivity(new Intent(this, WidgetSelectConfiguratorList.class));
                 break;
 
             case R.id.accept_hashtag:
                 User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setHashtag(hashtag.getText().toString());
                 newTw.put("hashtag", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getHashtag());
                 FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
+                this.startActivity(new Intent(this, WidgetSelectConfiguratorList.class));
                 break;
         }
     }
