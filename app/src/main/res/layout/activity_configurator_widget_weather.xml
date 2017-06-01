@@ -17,27 +17,107 @@
         android:background="?attr/colorPrimary"
         android:theme="?attr/actionBarTheme"
         android:minHeight="?attr/actionBarSize"
-        android:id="@+id/toolbar_widgetsTime"/>
+        android:id="@+id/toolbar_widgetsWeather"
+        android:layout_alignParentTop="true" />
+
+
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="124dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:hint="Ciudad"
         android:ems="10"
-        android:layout_marginEnd="11dp"
         android:id="@+id/city"
-        android:layout_alignBottom="@+id/toolbar_widgetsTime"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="83dp"
+        android:layout_below="@+id/toolbar_widgetsWeather"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/aceptar" />
 
-    <ImageButton
-        android:id="@+id/cityButton"
+    <Button
+        android:id="@+id/aceptar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/toolbar_widgetsTime"
+        android:layout_marginEnd="31dp"
+        android:text="Aceptar"
+        android:layout_alignBottom="@+id/city"
+        android:layout_alignParentEnd="true" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:layout_height="250dp"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/city"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="26dp"
-        app:srcCompat="@drawable/back_arrow"
-        android:layout_toStartOf="@+id/city" />
+        android:layout_marginTop="38dp"
+        android:layout_alignParentEnd="true"
+        android:background="@color/black_semi_transparent"
+        android:id="@+id/linearLayout"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/city"
+            android:layout_marginTop="38dp"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/imgWeather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/linearLayout"
+                app:srcCompat="@drawable/ein" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/city"
+            android:layout_marginTop="38dp"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/ciudad"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_alignEnd="@+id/aceptar"
+                android:layout_below="@+id/linearLayout"
+                android:layout_weight="0.07"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/temp"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="30dp"
+                android:layout_toEndOf="@+id/city"
+                android:layout_weight="0.07"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

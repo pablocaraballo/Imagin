@@ -206,8 +206,8 @@ public class MirrorActivity extends GoogleApiActivity {
 
             int id = getResources().getIdentifier("rl"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror()+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), "id", getPackageName() );
             RelativeLayout twitter= (RelativeLayout) findViewById(id);
-            twitter.getLayoutParams().height=750;
-            twitter.getLayoutParams().width=800;
+            twitter.getLayoutParams().height=400;
+            twitter.getLayoutParams().width=450;
 
             twitter.addView(lv);
 
@@ -295,8 +295,8 @@ public class MirrorActivity extends GoogleApiActivity {
 
                 int id = getResources().getIdentifier("rl"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror()+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), "id", getPackageName() );
                 RelativeLayout twitter= (RelativeLayout) findViewById(id);
-                twitter.getLayoutParams().height=750;
-                twitter.getLayoutParams().width=800;
+                twitter.getLayoutParams().height=400;
+                twitter.getLayoutParams().width=450;
 
                 twitter.addView(lv);
 
