@@ -11,7 +11,8 @@ public class Configurator {
     WidgetTwitter widgetTwitter;
 
     @Exclude
-    public static String espejoActual;
+    public static String currentMirrorId;
+    public static Mirror currentMirror;
 
     public WidgetTwitter getWidgetTwitter() {
         return widgetTwitter;

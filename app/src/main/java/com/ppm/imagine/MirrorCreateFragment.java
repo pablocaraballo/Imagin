@@ -19,7 +19,9 @@ import com.ppm.imagine.R;
 
 public class MirrorCreateFragment extends DialogFragment {
 
+    public Class nextActivityClass;
     public String nombre;
+
 
     public String getNombre() {
         return nombre;
@@ -29,6 +31,9 @@ public class MirrorCreateFragment extends DialogFragment {
         this.nombre = nombre;
     }
 
+    public void setNextActivityClass(Class nextActivityClass){
+        this.nextActivityClass = nextActivityClass;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -48,24 +53,26 @@ public class MirrorCreateFragment extends DialogFragment {
 
                         if (getNombre() != null) {
 
-                            DatabaseReference db= FirebaseDatabase.getInstance().getReference();
+                            DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
-                            DefaultMirror df= new DefaultMirror(getContext());
-                            df.setName(getNombre());
+                            DefaultMirror defaultMirror = new DefaultMirror(getContext());
+                            defaultMirror.setName(getNombre());
 
+                            System.out.println("yeaaaa1");
                             String mirrorkey = db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().getKey();
-                            df.id = mirrorkey;
+                            defaultMirror.id = mirrorkey;
+                            System.out.println("yeaaaaa2 " + mirrorkey);
 
-                            db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid() + "/" + mirrorkey).setValue(df);
-
+                            db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid() + "/" + mirrorkey).setValue(defaultMirror);
+                            System.out.println("yeaaaaa3");
                             Log.v("MIRROR_CREATED", getNombre());
 
                             //Asignación del espejo actual al recientemente creado
-                            Configurator.espejoActual= getNombre();
+                            Configurator.currentMirror = defaultMirror;
 
                             Toast.makeText(getContext(), edittext.getText().toString(), Toast.LENGTH_SHORT).show();
 
-                            startActivity(new Intent(getActivity(), MirrorActivity.class));
+                            startActivity(new Intent(getActivity(), nextActivityClass));
                         }
 
                     }

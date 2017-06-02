@@ -6,8 +6,7 @@ import android.view.View;
 public abstract class Widget {
 
     String name;
-    int posXinMirror;
-    int posYinMirror;
+    int position;
     Boolean active;
 
     public Boolean getActive() {
@@ -19,35 +18,28 @@ public abstract class Widget {
     }
 
     public Widget(String name, Float posYinMirror, Float posXinMirror) {
-
         this.name = name;
-        this.posYinMirror = 0;
-        this.posXinMirror = 0;
+        this.position = 0;
     }
 
     public Widget(String name) {
-
         this.name = name;
     }
 
-    public Widget(){
-
-    }
+    public Widget(){}
 
     public void init(Context context){
+        System.out.println("initializing widget " + name);
         createView(context);
         startThread(context);
     }
 
-    public void createView(Context context){
+    public abstract void createView(Context context);
 
-    }
-
-    public void startThread(Context context){
-
-    }
+    public void startThread(Context context){};
 
     public abstract View getView();
+    public abstract int getIcon();
 
     public String getName() {
         return name;
@@ -57,19 +49,10 @@ public abstract class Widget {
         this.name = name;
     }
 
-    public int getPosXinMirror() {
-        return posXinMirror;
+    public int getPosition() {
+        return position;
     }
 
-    public void setPosXinMirror(int posXinMirror) {
-        this.posXinMirror = posXinMirror;
-    }
+    public void setPosition(int position) { this.position= position; }
 
-    public int getPosYinMirror() {
-        return posYinMirror;
-    }
-
-    public void setPosYinMirror(int posYinMirror) {
-        this.posYinMirror = posYinMirror;
-    }
 }

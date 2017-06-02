@@ -1,10 +1,17 @@
 package com.ppm.imagine;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.firebase.database.Exclude;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,6 +31,15 @@ public class WidgetWeather extends Widget{
     public String pathImagen;
     public String city;
     public String temp;
+    Boolean meteoExists;
+    Boolean horaExists;
+    Boolean twitterExists;
+    LinearLayout currentMeteo;
+    LinearLayout meteo;
+
+    @Exclude
+    int icon = R.drawable.timewidgetlogo_scaled;
+
 
     public String getPathImagen() {
         return pathImagen;
@@ -49,31 +65,69 @@ public class WidgetWeather extends Widget{
         this.city = city;
     }
 
-
-    TextView textView;
-
     public WidgetWeather() {
         super();
-        this.posYinMirror = 2;
-        this.posXinMirror = 0;
+        this.position = 2;
         setCity(city);
         //defWeather(); este constuctor no se si lo utilizo en algun lado
     }
 
     public void init(Context context){
-        textView = new TextView(context);
-        textView.setText("this is weather");
+        createView(context);
     }
 
-    @Override
-    public View getView() {
-        return textView;
+    public void createView(Context context){
+
+        meteo = new LinearLayout(context);
+        meteo.setOrientation(LinearLayout.VERTICAL);
+
+        TextView city =new TextView(context);
+        TextView temp = new TextView(context);
+        ImageView imageView = new ImageView(context);
+
+        String resourceName = getPathImagen();
+
+        if (resourceName != null) {
+            city.setTextColor(Color.WHITE);
+            city.setTextSize(35);
+            city.setText(getCity());
+
+            temp.setTextColor(Color.WHITE);
+            temp.setTextSize(35);
+            temp.setText(getTemp().toString() + "ºC");
+            temp.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+            imageView.setImageResource(context.getResources().getIdentifier(resourceName, "drawable", context.getPackageName()));
+            imageView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+            if (city.getParent() != null) {
+                ((ViewGroup) city.getParent()).removeView(city);
+            }
+
+            if (temp.getParent() != null) {
+                ((ViewGroup) temp.getParent()).removeView(temp);
+            }
+
+            if (imageView.getParent() != null) {
+                ((ViewGroup) imageView.getParent()).removeView(imageView);
+            }
+
+            meteo.addView(imageView);
+            meteo.addView(temp);
+            meteo.addView(city);
+        }
     }
+
+    @Exclude
+    @Override
+    public View getView() { return meteo; }
+
+    @Exclude
+    public int getIcon() { return icon; }
 
     public WidgetWeather(String name) {
-	super(name);
-        this.posYinMirror = 2;
-        this.posXinMirror = 0;
+	    super(name);
+        this.position = 2;
         setCity(city);
         defWeather();
     }
@@ -81,9 +135,8 @@ public class WidgetWeather extends Widget{
 
 
     public WidgetWeather(String city,String name) {
-	super(name);
-        this.posYinMirror = 2;
-        this.posXinMirror = 0;
+    	super(name);
+        this.position = 2;
         setCity(city);
         getWeather(city);
     }
@@ -95,10 +148,8 @@ public class WidgetWeather extends Widget{
             }catch (Exception e){
 
             }
-
-
-
     }
+
     public void getWeather(final String ciudad){
 
         try{
@@ -107,9 +158,6 @@ public class WidgetWeather extends Widget{
         }catch (Exception e){
 
         }
-
-
-
     }
 
     public String getJSON(String url, int timeout) {

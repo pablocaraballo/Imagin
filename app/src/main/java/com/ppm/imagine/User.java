@@ -33,7 +33,7 @@ public class User{
 
     public static void updateConfigToMirror(Configurator newconfig){
 
-        mirrors.get(Configurator.espejoActual).setConfigurator(newconfig);
+        Configurator.currentMirror.setConfigurator(newconfig);
     }
 
     public static void QueryMirrorsUser(){

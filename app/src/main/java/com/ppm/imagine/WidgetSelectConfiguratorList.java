@@ -47,7 +47,7 @@ public class WidgetSelectConfiguratorList extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        startActivity(new Intent(WidgetSelectConfiguratorList.this, ConfiguratorView.class));
+        startActivity(new Intent(WidgetSelectConfiguratorList.this, ConfiguratorActivity.class));
     }
 }
 

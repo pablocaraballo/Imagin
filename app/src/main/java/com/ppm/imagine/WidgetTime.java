@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.Exclude;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,23 +36,18 @@ public class WidgetTime extends Widget {
     public static String zonas[]= TimeZone.getAvailableIDs();
     TextView hora;
 
-    public WidgetTime(){
+    int icon = R.drawable.relojwidgetlogo_scaled;
 
+    public WidgetTime(){
 
     }
 
     public WidgetTime(String name) {
         super(name);
 
-        this.posYinMirror = 0;
-        this.posXinMirror = 0;
+        this.position = 0;
 
         setHoraActual(new String("Europe/Madrid"));
-
-        for (int i=0; i<zonas.length; i++){
-
-            System.out.println("TIEMPO DE ZONAS "+ zonas[i].toString());
-        }
     }
 
     public String getHoraActual() {
@@ -69,7 +66,6 @@ public class WidgetTime extends Widget {
                 String.format("%02d" , c.get(Calendar.MINUTE));
 
         return time;
-
     }
 
 
@@ -97,8 +93,11 @@ public class WidgetTime extends Widget {
 
     }
 
+    @Exclude
     public View getView() {
         return hora;
-
     }
+
+    @Exclude
+    public int getIcon() { return icon; }
 }

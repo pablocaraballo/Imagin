@@ -42,12 +42,12 @@ public class WidgetTimeConfiguratorActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().setHoraActual(WidgetTime.zonas[position]);
-                System.out.println("HOOOOOOOORA: "+ "ITEM: " + WidgetTime.zonas[position] + "/////" +  User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getHoraActual());
+                Configurator.currentMirror.getConfigurator().getWidgetTime().setHoraActual(WidgetTime.zonas[position]);
+                System.out.println("HOOOOOOOORA: "+ "ITEM: " + WidgetTime.zonas[position] + "/////" +  Configurator.currentMirror.getConfigurator().getWidgetTime().getHoraActual());
 
                 Map<String, Object> newTz = new HashMap<String, Object>();
-                newTz.put("horaActual", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getHoraActual());
-                FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getName()).updateChildren(newTz);
+                newTz.put("horaActual", Configurator.currentMirror.getConfigurator().getWidgetTime().getHoraActual());
+                FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +Configurator.currentMirror.id +"/configurator/"+ Configurator.currentMirror.getConfigurator().getWidgetTime().getName()).updateChildren(newTz);
 
                 startActivity(new Intent(WidgetTimeConfiguratorActivity.this, WidgetSelectConfiguratorList.class));
             }
