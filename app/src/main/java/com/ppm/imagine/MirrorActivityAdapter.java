@@ -12,30 +12,32 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class MirrorActivityAdapter extends RecyclerView.Adapter<MirrorActivityAdapter.ViewHolder>  {
 
-    private Widget[] mData = new Widget[0];
+    private Widget[] dataSet;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context context;
     private int numColumns;
+    private int numRows;
     private Point sizeDisplay;
 
-    // data is passed into the constructor
-    public MirrorActivityAdapter(Context context, Widget[] data, int numColumns, Point size) {
+    public MirrorActivityAdapter(Context context, Widget[] dataSet, int numColumns, int numRows, Point size) {
         this.mInflater = LayoutInflater.from(context);
         this.context= context;
-        this.mData = data;
+        this.dataSet = dataSet;
         this.numColumns = numColumns;
+        this.numRows = numRows;
         this.sizeDisplay=size;
     }
 
-    // inflates the cell layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.griditem_mirror, parent, false);
         ViewGroup.LayoutParams params= view.getLayoutParams();
-        params.height= sizeDisplay.y/(mData.length/numColumns);
+        params.height= sizeDisplay.y/numRows;
         view.setLayoutParams(params);
 
 
@@ -43,35 +45,26 @@ public class MirrorActivityAdapter extends RecyclerView.Adapter<MirrorActivityAd
         return viewHolder;
     }
 
-    // binds the data to the textview in each cell
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        boolean hayWidget = false;
-        for(int i=0; i<mData.length; i++){
-            if(mData[i] != null) {
-                if (mData[i].getPosXinMirror() * numColumns + mData[i].getPosYinMirror() == position) {
-                    holder.myTextView.addView(mData[i].getView());
-                    hayWidget = true;
-                }
-            }
-        }
-        if(! hayWidget) {
+        if(dataSet[position] != null) {
+                System.out.println("adding widget " + dataSet[position].getName());
+                holder.myTextView.addView(dataSet[position].getView());
+        }else{
             TextView textView = new TextView(context);
-            textView.setText("Widget" + position);
+            textView.setText("W" + position);
             holder.myTextView.addView(textView);
         }
-
     }
 
-    // total number of cells
     @Override
     public int getItemCount() {
-        return mData.length;
+        return numColumns*numRows;
     }
 
+    public Widget[] getDataSet(){ return dataSet; }
 
-    // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public RelativeLayout myTextView;
 
@@ -87,17 +80,14 @@ public class MirrorActivityAdapter extends RecyclerView.Adapter<MirrorActivityAd
         }
     }
 
-    // convenience method for getting data at click position
     public Widget getItem(int id) {
-        return mData[id];
+        return dataSet[id];
     }
 
-    // allows clicks events to be caught
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
-    // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }

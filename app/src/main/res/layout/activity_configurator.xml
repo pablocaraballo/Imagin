@@ -7,15 +7,10 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <GridLayout
-        android:id="@+id/gridLayout"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/configurator_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="6"
-        android:rowCount="6"
-        android:useDefaultMargins="true">
-
-    </GridLayout>
+        android:layout_height="match_parent"/>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions_down"

@@ -7,6 +7,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.Exclude;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
@@ -24,36 +25,39 @@ public class WidgetTwitter extends Widget {
     SearchTimeline searchTimeline;
     ListView lv;
 
+    int icon = R.drawable.twitter_icon_scaled;
+
     public WidgetTwitter(){}
 
     public void init(Context context){
         createView(context);
     }
 
+    @Exclude
     @Override
     public View getView() {
         return lv;
     }
 
+    @Exclude
+    public int getIcon() { return icon; }
+
     public WidgetTwitter(String name){
         super(name);
         this.setActive(false);
-        setPosXinMirror(0);
-        setPosYinMirror(1);
+        setPosition(1);
     }
 
     public void createView(Context context){
+        lv = new ListView(context);
 
         if (this.getActive()) {
 
             System.out.println("WIDGETW ISACTIVE TRUE");
 
-            //CONTROLAR QUE PASA SI LOS DOS CAMPOS ESTAN RELLENO (ELSE IF)
-
             if (getUserName().isEmpty() ) {
                 searchTimeline = new SearchTimeline.Builder().query(getHashtag()).build();
                 System.out.println("DENTROHASTAG "+getHashtag());
-
             }else if(getHashtag().isEmpty()) {
                 searchTimeline = new SearchTimeline.Builder().query(getUserName()).build();
                 System.out.println("DENTROUSERNAME "+getUserName());
@@ -62,7 +66,7 @@ public class WidgetTwitter extends Widget {
             }
 
             TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(context, searchTimeline);
-            lv = new ListView(context);
+
             lv.setAdapter(timelineAdapter);
         }
     }

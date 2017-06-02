@@ -89,15 +89,15 @@ implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.accept_user:
-                User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setUserName(username.getText().toString());
-                newTw.put("userName", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getUserName());
-                FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
+                Configurator.currentMirror.getConfigurator().getWidgetTwitter().setUserName(username.getText().toString());
+                newTw.put("userName", Configurator.currentMirror.getConfigurator().getWidgetTwitter().getUserName());
+                FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +Configurator.currentMirror.id +"/configurator/"+ Configurator.currentMirror.getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
                 break;
 
             case R.id.accept_hashtag:
-                User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().setHashtag(hashtag.getText().toString());
-                newTw.put("hashtag", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getHashtag());
-                FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
+                Configurator.currentMirror.getConfigurator().getWidgetTwitter().setHashtag(hashtag.getText().toString());
+                newTw.put("hashtag", Configurator.currentMirror.getConfigurator().getWidgetTwitter().getHashtag());
+                FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +Configurator.currentMirror.id +"/configurator/"+ Configurator.currentMirror.getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
                 break;
         }
     }
@@ -105,10 +105,10 @@ implements View.OnClickListener{
     //Delete all filters in FirebaseDB
     public void deleteFilters(){
         newTw.put("userName","");
-        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
+        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +Configurator.currentMirror.id +"/configurator/"+ Configurator.currentMirror.getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
 
         newTw.put("hashtag", "");
-        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
+        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +Configurator.currentMirror.id +"/configurator/"+ Configurator.currentMirror.getConfigurator().getWidgetTwitter().getName()).updateChildren(newTw);
     }
 }
 
