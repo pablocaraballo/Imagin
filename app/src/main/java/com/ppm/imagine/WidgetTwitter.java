@@ -18,7 +18,7 @@ public class WidgetTwitter extends Widget {
         super(name);
         this.setActive(false);
         setPosXinMirror(0);
-        setPosYinMirror(1);
+        setPosYinMirror(2);
     }
 
     public String getCurrentUserName() {

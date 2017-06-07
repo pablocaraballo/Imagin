@@ -34,8 +34,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
-
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ConfiguratorView extends Activity {
@@ -43,6 +46,8 @@ public class ConfiguratorView extends Activity {
     ImageView twitterInGrid;
     ImageView timeInGrid;
     ImageView weatherInGrid;
+    Map<String, Object> newTw = new HashMap<String, Object>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +79,7 @@ public class ConfiguratorView extends Activity {
                 GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosYinMirror(), GridLayout.CENTER),
                 GridLayout.spec(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror(), GridLayout.CENTER)));
 
-        twitterInGrid.setOnLongClickListener(new View.OnLongClickListener() {
+       /* twitterInGrid.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 System.out.println("ME HAS TOCADO");
@@ -89,9 +94,9 @@ public class ConfiguratorView extends Activity {
 
                 return true;
             }
-        });
+        });*/
 
-        /*timeInGrid.setOnLongClickListener(new View.OnLongClickListener() {
+        timeInGrid.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 System.out.println("ME HAS TOCADO");
@@ -108,7 +113,7 @@ public class ConfiguratorView extends Activity {
             }
         });
 
-        weatherInGrid.setOnLongClickListener(new View.OnLongClickListener() {
+        /*weatherInGrid.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 System.out.println("ME HAS TOCADO");
@@ -128,7 +133,7 @@ public class ConfiguratorView extends Activity {
         System.out.println("INICIO "+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror());
         System.out.println("INICIO2 "+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror());
 
-        twitterInGrid.setOnDragListener(new View.OnDragListener() {
+       /* twitterInGrid.setOnDragListener(new View.OnDragListener() {
 
             @Override
            public boolean onDrag(View v, DragEvent event) {
@@ -186,9 +191,9 @@ public class ConfiguratorView extends Activity {
 
                 return true;
             }
-        });
+        });*/
 
-        /*timeInGrid.setOnDragListener(new View.OnDragListener() {
+        timeInGrid.setOnDragListener(new View.OnDragListener() {
 
             @Override
             public boolean onDrag(View v, DragEvent event) {
@@ -227,10 +232,16 @@ public class ConfiguratorView extends Activity {
                         timeInGrid.setX(event.getX());
                         timeInGrid.setY(event.getY());
 
-                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().setPosXinMirror((int) event.getX()*6/width);
-                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().setPosYinMirror((int) event.getY()*6/height);
+                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().setPosXinMirror((int) event.getX()*3/width);
+                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().setPosYinMirror((int) event.getY()*3/height);
 
                         timeInGrid.setVisibility(View.VISIBLE);
+                        newTw.put("posXinMirror", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosXinMirror());
+                        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getName()).updateChildren(newTw);
+                        newTw.put("posYinMirror", User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosYinMirror());
+                        FirebaseDatabase.getInstance().getReference("/users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+ "/" +User.mirrors.get(Configurator.espejoActual).id +"/configurator/"+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getName()).updateChildren(newTw);
+
+
                         System.out.println("SOLTADO1 "+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosXinMirror());
                         System.out.println("SOLTADO2 "+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosYinMirror());
                         break;
@@ -248,7 +259,7 @@ public class ConfiguratorView extends Activity {
             }
         });
 
-        weatherInGrid.setOnDragListener(new View.OnDragListener() {
+       /* weatherInGrid.setOnDragListener(new View.OnDragListener() {
 
             @Override
             public boolean onDrag(View v, DragEvent event) {
@@ -287,8 +298,8 @@ public class ConfiguratorView extends Activity {
                         weatherInGrid.setX(event.getX());
                         weatherInGrid.setY(event.getY());
 
-                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().setPosXinMirror((int) event.getX()*6/width);
-                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().setPosYinMirror((int) event.getY()*6/height);
+                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().setPosXinMirror((int) event.getX()*3/width);
+                        User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().setPosYinMirror((int) event.getY()*3/height);
 
                         weatherInGrid.setVisibility(View.VISIBLE);
                         System.out.println("SOLTADO1 "+ User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPosXinMirror());

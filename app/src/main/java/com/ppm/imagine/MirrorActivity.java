@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -94,20 +95,20 @@ public class MirrorActivity extends GoogleApiActivity {
 
                 String resourceName=null;
 
-                if (User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPathImagen()!=null) {
+                //if (User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPathImagen()!=null) {
                     resourceName = User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getPathImagen();
-                }
+                //}
 
                 if (resourceName!=null) {
 
 
                     city.setTextColor(Color.WHITE);
-                    city.setTextSize(35);
+                    city.setTextSize(25);
                     city.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getCity());
 
                     temp.setTextColor(Color.WHITE);
-                    temp.setTextSize(35);
-                    temp.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getTemp().toString()+"ºC");
+                    temp.setTextSize(25);
+                    temp.setText(User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetWeather().getTemp()+"ºC");
                     temp.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
                     imageView.setImageResource(getResources().getIdentifier(resourceName, "drawable", getPackageName()));
@@ -141,7 +142,7 @@ public class MirrorActivity extends GoogleApiActivity {
                 //WIDGET TIME
 
                 hora.setTextColor(Color.WHITE);
-                hora.setTextSize(50);
+                hora.setTextSize(35);
 
                 WidgetTime wt= User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime();
 
@@ -153,6 +154,7 @@ public class MirrorActivity extends GoogleApiActivity {
 
                 int id = getResources().getIdentifier("rl"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosYinMirror()+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTime().getPosXinMirror(), "id", getPackageName() );
                 if (horaExists){ ((RelativeLayout) findViewById(currentHoraId)).removeView(currentHora);}
+
                 ((RelativeLayout) findViewById(id)).addView(hora);
 
                 currentHora= hora;
@@ -181,23 +183,26 @@ public class MirrorActivity extends GoogleApiActivity {
                 searchTimeline = new SearchTimeline.Builder().query(wtt.getUserName()).build();
             }
 
-            TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
-            ListView lv = new ListView(MirrorActivity.this);
-            lv.setAdapter(timelineAdapter);
+            if (searchTimeline !=null) {
 
-            if (lv.getParent() != null) {
-                ((ViewGroup) lv.getParent()).removeView(lv);
+                TweetTimelineListAdapter timelineAdapter = new TweetTimelineListAdapter(MirrorActivity.this, searchTimeline);
+                ListView lv = new ListView(MirrorActivity.this);
+                lv.setAdapter(timelineAdapter);
+
+                if (lv.getParent() != null) {
+                    ((ViewGroup) lv.getParent()).removeView(lv);
+                }
+
+                int id = getResources().getIdentifier("rl" + User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror() + User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), "id", getPackageName());
+                RelativeLayout twitter = (RelativeLayout) findViewById(id);
+                twitter.getLayoutParams().height = 400;
+                twitter.getLayoutParams().width = 450;
+                twitter.addView(lv);
+
+                currentTwitterId = id;
+                currentTwitterLayout = lv;
+                twitterExists = true;
             }
-
-            int id = getResources().getIdentifier("rl"+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosYinMirror()+User.mirrors.get(Configurator.espejoActual).getConfigurator().getWidgetTwitter().getPosXinMirror(), "id", getPackageName() );
-            RelativeLayout twitter= (RelativeLayout) findViewById(id);
-            twitter.getLayoutParams().height=400;
-            twitter.getLayoutParams().width=450;
-            twitter.addView(lv);
-
-            currentTwitterId= id;
-            currentTwitterLayout = lv;
-            twitterExists=true;
         }
     }
 
@@ -236,18 +241,6 @@ public class MirrorActivity extends GoogleApiActivity {
 
             }
         });
-    }
-
-    //TESTING
-    void fillLayout2(){
-        for(int i=0; i<3; i++){
-            for(int j=0; j<6; j++){
-                TextView tv = new TextView(this);
-                tv.setText(i + "," + j);
-                int id = getResources().getIdentifier("rl"+i+j, "id", getPackageName() );
-                ((RelativeLayout) findViewById(id)).addView(tv);
-            }
-        }
     }
 
     public void defaultTimeLine(){

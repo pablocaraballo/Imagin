@@ -47,16 +47,16 @@ public class WidgetWeather extends Widget{
 
     public WidgetWeather() {
         super();
-        this.posYinMirror = 2;
-        this.posXinMirror = 0;
+        this.posYinMirror = 0;
+        this.posXinMirror = 3;
         setCity(city);
         //defWeather(); este constuctor no se si lo utilizo en algun lado
     }
 
     public WidgetWeather(String name) {
-	super(name);
-        this.posYinMirror = 2;
-        this.posXinMirror = 0;
+        super(name);
+        this.posYinMirror = 0;
+        this.posXinMirror = 3;
         setCity(city);
         defWeather();
     }
@@ -64,20 +64,20 @@ public class WidgetWeather extends Widget{
 
 
     public WidgetWeather(String city,String name) {
-	super(name);
-        this.posYinMirror = 2;
-        this.posXinMirror = 0;
+        super(name);
+        this.posYinMirror = 0;
+        this.posXinMirror = 3;
         setCity(city);
         getWeather(city);
     }
 
     public void defWeather(){
-            try{
-                convertToJSON(getJSON("http://api.openweathermap.org/data/2.5/weather?q=Bacelona&appid=2de70b6961f101b94a6655b4856e3921",300000000));
-                setCity("Barcelona");
-            }catch (Exception e){
+        try{
+            setCity("Barcelona");
+            convertToJSON(getJSON("http://api.openweathermap.org/data/2.5/weather?q=Bacelona&appid=2de70b6961f101b94a6655b4856e3921",300000000));
+        }catch (Exception e){
 
-            }
+        }
 
 
 
@@ -85,8 +85,8 @@ public class WidgetWeather extends Widget{
     public void getWeather(final String ciudad){
 
         try{
-            convertToJSON(getJSON("http://api.openweathermap.org/data/2.5/weather?q="+ciudad+"&appid=2de70b6961f101b94a6655b4856e3921",300000000));
             setCity(ciudad);
+            convertToJSON(getJSON("http://api.openweathermap.org/data/2.5/weather?q="+ciudad+"&appid=2de70b6961f101b94a6655b4856e3921",300000000));
         }catch (Exception e){
 
         }
@@ -153,11 +153,13 @@ public class WidgetWeather extends Widget{
             tempAux = tempAux - 273.15;
             tempAux = Math.rint(tempAux*100)/100;
 
-            temperature =tempAux.toString();
+
+            int tempFinal= tempAux.intValue();
+            temperature =String.valueOf(tempFinal);
 
             setTemp(temperature);
             Double temSauron = Math.rint((tempAux+300)*100)/100;
-
+            int sauronFinal= temSauron.intValue();
 
 
             JSONObject obj = new JSONObject(object);
@@ -171,12 +173,11 @@ public class WidgetWeather extends Widget{
 
             }
 
-           /*if (getCity().equals("Mordor") || getCity().equals("mordor")) {
+            if (getCity().equals("Mordor") || getCity().equals("mordor")) {
                 setPathImagen("sauron");
-                setTemp(temSauron.toString());
-                                                            //si falla es por esto
-
-            } else {*/
+                setTemp(String.valueOf(sauronFinal));
+                //si falla es por esto
+            } else {
                 switch (ident) {
                     case "01d":
                         setPathImagen("sol");
@@ -229,7 +230,7 @@ public class WidgetWeather extends Widget{
                         setPathImagen("niebla");
                         break;
                 }
-            //}
+            }
         } catch (Throwable t) {
             Log.e("ErrorParsingJSON", "Could not parse malformed JSON: \"" + object + "\"");
         }
